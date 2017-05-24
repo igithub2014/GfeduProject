@@ -8,19 +8,19 @@ package jc.cici.android.atom.common;
 public class Global {
 
     // 老版本服务器地址
-    public static final String OLD_BASE_URL ="http://m.gfedu.cn/StudentWebService.asmx/";
-    public static final String MD5_KEY = "GfeduAPISecretKey";
+    public static final String OLD_BASE_URL ="";
+    public static final String MD5_KEY = "";
 
     // 服务器地址
-    public static final String BASE_URL = "http://mapi.gfedu.cn/api/";
+    public static final String BASE_URL = "";
     // 客户端类型
-    public static final String CLIENT = "Android";
+    public static final String CLIENT = "";
     //客户端名
-    public static final String APPNAME="JinChengWangXiao";
+    public static final String APPNAME="";
     // 客户端登录标示
-    public static final String LOGIN_FLAG ="JCLogin";
+    public static final String LOGIN_FLAG ="";
     // 客户端最近一次登录提示
-    public static final String LAST_LOGIN_FLAG ="last_JCLogin";
+    public static final String LAST_LOGIN_FLAG ="";
     // 客户端绑定设备标示
     public static final String UUID_FLAG = "UUID";
 
