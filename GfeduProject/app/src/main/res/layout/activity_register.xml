@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_view_bg">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/base_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/login_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title_layout">
+
+        <RelativeLayout
+            android:id="@+id/register_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="50px"
+            android:background="@drawable/ic_login_box_input">
+
+            <ImageView
+                android:id="@+id/register_icon"
+                android:layout_width="32px"
+                android:layout_height="32px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="16px"
+                android:src="@drawable/ic_login_ico_user" />
+
+            <EditText
+                android:id="@+id/register_userName_txt"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/register_icon"
+                android:background="@null"
+                android:ems="15"
+                android:hint="@string/register_hint_txt"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:textColor="@color/input_txt_color"
+                android:textColorHint="@color/txt_hint_color"
+                android:textSize="28px" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorUserName_register_tapTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/register_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/phone_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_below="@+id/errorUserName_register_tapTxt"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="13px"
+            android:background="@drawable/ic_login_box_input">
+
+            <ImageView
+                android:id="@+id/phone_icon"
+                android:layout_width="32px"
+                android:layout_height="32px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="16px"
+                android:src="@drawable/icon_phone" />
+
+            <EditText
+                android:id="@+id/phone_txt"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/phone_icon"
+                android:background="@null"
+                android:ems="11"
+                android:hint="@string/register_phone_hintTxt"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:textColor="@color/input_txt_color"
+                android:textColorHint="@color/txt_hint_color"
+                android:textSize="28px" />
+
+            <ImageView
+                android:id="@+id/hint_phoneTag_img"
+                android:layout_width="37px"
+                android:layout_height="32px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:background="@drawable/icon_input_error"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorPhone_tap_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phone_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/identify_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorPhone_tap_txt"
+            android:layout_marginTop="13px">
+
+            <RelativeLayout
+                android:id="@+id/identify_input_layout"
+                android:layout_width="450px"
+                android:layout_height="80px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/ic_login_box_input"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/identify_icon"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="16px"
+                    android:src="@drawable/icon_identifying_code" />
+
+                <EditText
+                    android:id="@+id/identify_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/identify_icon"
+                    android:background="@null"
+                    android:ems="4"
+                    android:hint="@string/identify_hint_txt"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/input_txt_color"
+                    android:textColorHint="@color/txt_hint_color"
+                    android:textSize="28px" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/identify_Tag_img"
+                android:layout_width="190px"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="30px"
+                android:layout_toRightOf="@+id/identify_input_layout"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorIdentify_tap_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/identify_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/verify_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorIdentify_tap_txt"
+            android:layout_marginTop="13px">
+
+            <RelativeLayout
+                android:id="@+id/verify_input_layout"
+                android:layout_width="450px"
+                android:layout_height="80px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/ic_login_box_input">
+
+                <ImageView
+                    android:id="@+id/verify_icon"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="16px"
+                    android:src="@drawable/icon_dynamic_code" />
+
+                <EditText
+                    android:id="@+id/verify_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/verify_icon"
+                    android:background="@null"
+                    android:ems="6"
+                    android:hint="@string/verify_hint_txt"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:singleLine="true"
+                    android:textColor="@color/input_txt_color"
+                    android:textColorHint="@color/txt_hint_color"
+                    android:textSize="28px" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/verify_Btn"
+                android:layout_width="190px"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="30px"
+                android:layout_toRightOf="@+id/verify_input_layout"
+                android:background="@drawable/login_button_normal_bg"
+                android:clickable="false"
+                android:enabled="false"
+                android:text="@string/verify_button_txt"
+                android:textColor="@color/verity_send_txt"
+                android:textSize="28px" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorVerity_tap_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/verify_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/registerPWDCon_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorVerity_tap_txt"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="13px">
+
+            <RelativeLayout
+                android:id="@+id/registerPWD_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:background="@drawable/ic_login_box_input">
+
+                <ImageView
+                    android:id="@+id/registerPWD_icon"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="16px"
+                    android:src="@drawable/ic_login_ico_password" />
+
+                <EditText
+                    android:id="@+id/register_PWD_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/registerPWD_icon"
+                    android:background="@null"
+                    android:ems="15"
+                    android:hint="@string/register_PWD_txt"
+                    android:inputType="textPassword"
+                    android:maxLength="15"
+                    android:minLines="8"
+                    android:singleLine="true"
+                    android:textColor="@color/input_txt_color"
+                    android:textColorHint="@color/txt_hint_color"
+                    android:textSize="28px" />
+            </RelativeLayout>
+
+            <CheckBox
+                android:id="@+id/register_checkBox"
+                android:layout_width="35px"
+                android:layout_height="20px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:background="@drawable/icon_hide"
+                android:button="@null" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorPWD_register_tapTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/registerPWDCon_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/login_registerBtn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorPWD_register_tapTxt"
+            android:layout_marginTop="81px">
+
+            <Button
+                android:id="@+id/loginRegister_Btn"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/login_button_bg"
+                android:text="@string/login_txt"
+                android:textColor="@color/input_bg_color"
+                android:textSize="32px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/register_userTip_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_registerBtn_layout"
+            android:layout_marginTop="22px">
+
+            <TextView
+                android:id="@+id/userTipUnAction_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:text="@string/user_tip_txt"
+                android:textColor="@color/userTip_txt_color"
+                android:textSize="24px" />
+
+            <TextView
+                android:id="@+id/userTip_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userTipUnAction_txt"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:paddingTop="10px"
+                android:text="@string/user_actionTip_txt"
+                android:textColor="@color/error_hint_txt_color"
+                android:textSize="24px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/own__layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/register_userTip_layout"
+            android:layout_marginTop="130px">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px">
+
+                <TextView
+                    android:id="@+id/ownUser_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/own_user_txt"
+                    android:textColor="@color/userTip_txt_color"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/immediatelyLogin_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ownUser_txt"
+                    android:text="@string/immediately_login_txt"
+                    android:textColor="@color/error_hint_txt_color"
+                    android:textSize="30px" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_view_bg">
+
+    <RelativeLayout
+        android:id="@+id/haveCard_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:id="@+id/haveCard_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="50px"
+            android:background="@drawable/ic_login_box_input">
+
+            <ImageView
+                android:id="@+id/login_icon"
+                android:layout_width="32px"
+                android:layout_height="32px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="16px"
+                android:src="@drawable/ic_login_ico_user" />
+
+            <EditText
+                android:id="@+id/haveCard_txt"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/login_icon"
+                android:background="@null"
+                android:ems="20"
+                android:hint="@string/hint_txt"
+                android:maxLength="20"
+                android:singleLine="true"
+                android:textColor="@color/input_txt_color"
+                android:textColorHint="@color/txt_hint_color"
+                android:textSize="28px" />
+
+            <ImageView
+                android:id="@+id/hint_haveCardTag_img"
+                android:layout_width="37px"
+                android:layout_height="32px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:background="@drawable/icon_input_error"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorUser_haveCardTap_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/haveCard_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/psd_haveCard_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_below="@+id/errorUser_haveCardTap_txt"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="13px"
+            android:background="@drawable/ic_login_box_input">
+
+            <ImageView
+                android:id="@+id/password_icon"
+                android:layout_width="32px"
+                android:layout_height="32px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="16px"
+                android:src="@drawable/ic_login_ico_password" />
+
+            <EditText
+                android:id="@+id/passWord_haveCard_txt"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/password_icon"
+                android:background="@null"
+                android:ems="15"
+                android:hint="@string/hint_pwd_txt"
+                android:inputType="textPassword"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:textColor="@color/input_txt_color"
+                android:textColorHint="@color/txt_hint_color"
+                android:textSize="28px" />
+
+            <CheckBox
+                android:id="@+id/hint_haveCardPWDTag_img"
+                android:layout_width="35px"
+                android:layout_height="20px"
+                android:background="@drawable/icon_hide"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:button="@null"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorPsd_haveCardTap_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/psd_haveCard_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/haveCardBind_Btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorPsd_haveCardTap_txt"
+            android:layout_marginTop="81px">
+
+            <Button
+                android:id="@+id/haveCardBind_Btn"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/login_button_bg"
+                android:text="@string/card_bind_txt"
+                android:textColor="@color/input_bg_color"
+                android:textSize="32px" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/noCardTip_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/haveCardBind_Btn_layout"
+            android:layout_marginTop="14px">
+
+            <TextView
+                android:id="@+id/noCardTip_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:padding="10px"
+                android:text="@string/haveCard_notice_txt"
+                android:textColor="@color/userTip_txt_color"
+                android:textSize="24px" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

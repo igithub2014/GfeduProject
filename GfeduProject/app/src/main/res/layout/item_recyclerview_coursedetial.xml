@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/input_bg_color">
+
+    <RelativeLayout
+        android:id="@+id/header_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="98px">
+
+        <TextView
+            android:id="@+id/today_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="36px"
+            android:textColor="@color/register_txt_color"
+            android:textSize="32px"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:id="@+id/qr_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/qr_Img"
+                android:layout_width="40px"
+                android:layout_height="35px"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_qr" />
+
+            <TextView
+                android:id="@+id/qr_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@+id/qr_Img"
+                android:text="@string/qr_txt"
+                android:textColor="@color/register_txt_color"
+                android:textSize="26px" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_normal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_title_layout"
+        android:layout_marginTop="18px">
+
+        <RelativeLayout
+            android:id="@+id/divLine_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/dot_img"
+                android:layout_width="18px"
+                android:layout_height="18px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="52px"
+                android:background="@drawable/dot" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@+id/dot_img"
+                android:background="@drawable/line_div" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/courseImg_Layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divLine_layout">
+
+            <ImageView
+                android:id="@+id/staight_line"
+                android:layout_width="2px"
+                android:layout_height="148px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="60px"
+                android:layout_marginTop="12px"
+                android:background="@drawable/line_staight" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/staight_line">
+
+                <ImageView
+                    android:id="@+id/courseItem_Img"
+                    android:layout_width="90px"
+                    android:layout_height="90px"
+                    android:layout_marginTop="12px"
+                    android:layout_marginLeft="30px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_avatar" />
+
+                <TextView
+                    android:id="@+id/teacherName_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/courseItem_Img"
+                    android:layout_marginLeft="40px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/card_item_txt"
+                    android:textSize="24px" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/courseImg_Layout">
+
+            <RelativeLayout
+                android:id="@+id/courseName_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/courseName_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32px"
+                    android:textColor="@color/banner_title_color"
+                    android:textSize="32px"
+                    android:textStyle="bold"
+                    android:maxEms="8"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/courseTime_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30px"
+                    android:textColor="@color/card_item_txt"
+                    android:textSize="24px" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/courseName_Layout"
+                android:layout_marginTop="36px">
+                
+                <ImageView
+                    android:id="@+id/address_Img"
+                    android:layout_width="18px"
+                    android:layout_height="24px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32px"
+                    android:background="@drawable/icon_address"/>
+                <TextView
+                    android:id="@+id/address_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/address_Img"
+                    android:layout_marginLeft="10px"
+                    android:textColor="@color/card_item_txt"
+                    android:textSize="22px" />
+
+                <ImageView
+                    android:id="@+id/coming_Img"
+                    android:layout_width="10px"
+                    android:layout_height="12px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16px"
+                    android:layout_toRightOf="@+id/address_Txt"
+                    android:background="@drawable/icon_coming"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/banner_color</item>
+    </style>
+
+    <style name="common_set" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">80px</item>
+    </style>
+
+    <style name="NormalDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/normalDialogAnim</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="normalDialogAnim" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/normal_dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/normal_dialog_exit</item>
+    </style>
+
+    <style name="style0">
+        <item name="android:textSize">56px</item>
+        <item name="android:textColor">@color/error_hint_txt_color</item>
+    </style>
+
+    <style name="style1">
+        <item name="android:textSize">24px</item>
+        <item name="android:textColor">@color/banner_title_color</item>
+    </style>
+
+    <style name="style2">
+        <item name="android:textSize">32px</item>
+        <item name="android:textColor">@color/error_hint_txt_color</item>
+    </style>
+
+    <style name="style3">
+        <item name="android:textSize">22px</item>
+        <item name="android:textColor">@color/error_hint_txt_color</item>
+    </style>
+
+    <style name="style4">
+        <item name="android:textSize">32px</item>
+        <item name="android:textColor">@color/item_date_txt</item>
+    </style>
+
+    <style name="style5">
+        <item name="android:textSize">22px</item>
+        <item name="android:textColor">@color/item_date_txt</item>
+    </style>
+
+    <style name="popAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+</resources>

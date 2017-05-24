@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#80000000">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="164px"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        android:background="#ffffff">
+        <LinearLayout
+            android:id="@+id/note_Layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30px" >
+            <ImageView
+                android:layout_width="36px"
+                android:layout_height="30px"
+                android:layout_marginLeft="48px"
+                android:background="@drawable/icon_note"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:text="@string/course_note_txt"
+                android:textColor="@color/banner_title_color"
+                android:textSize="32px"
+                android:layout_marginLeft="40px"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"/>
+
+        <LinearLayout
+            android:id="@+id/ques_Layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30px">
+            <ImageView
+                android:layout_width="36px"
+                android:layout_height="30px"
+                android:layout_marginLeft="48px"
+                android:background="@drawable/icon_que"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:text="@string/course_ques_txt"
+                android:textColor="@color/banner_title_color"
+                android:textSize="32px"
+                android:layout_marginLeft="40px"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

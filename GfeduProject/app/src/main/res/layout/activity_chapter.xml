@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/base_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/spe_line_img"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@+id/title_layout"
+        android:layout_centerVertical="true"
+        android:background="#bbbbbb" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spe_line_img">
+
+        <RelativeLayout
+            android:id="@+id/qr_chapter_layout"
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px">
+
+            <ImageView
+                android:id="@+id/line_img"
+                android:layout_width="4px"
+                android:layout_height="30px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@color/error_hint_txt_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@+id/line_img"
+                android:text="@string/course_detail_txt"
+                android:textColor="@color/banner_title_color"
+                android:textSize="32px" />
+
+            <RelativeLayout
+                android:id="@+id/qr_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/qrImg"
+                    android:layout_width="40px"
+                    android:layout_height="35px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icon_qr" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12px"
+                    android:layout_toRightOf="@+id/qrImg"
+                    android:text="@string/qr_txt"
+                    android:textColor="@color/error_hint_txt_color"
+                    android:textSize="26px" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/schoolTime_layout"
+            android:layout_width="match_parent"
+            android:layout_height="212px"
+            android:layout_below="@+id/qr_chapter_layout"
+            android:layout_marginLeft="30px">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/chapterCourseName_Txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30px"
+                            android:gravity="left"
+                            android:textColor="@color/banner_title_color"
+                            android:textSize="32px"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="34px"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="18px"
+                                android:layout_height="24px"
+                                android:background="@drawable/icon_address"
+                                android:gravity="left" />
+
+                            <TextView
+                                android:id="@+id/schoolTime_Txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10px"
+                                android:textColor="@color/time_during"
+                                android:textSize="26px" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="20px"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="18px"
+                                android:layout_height="24px"
+                                android:background="@drawable/icon_address"
+                                android:gravity="left" />
+
+                            <TextView
+                                android:id="@+id/chapterAddress_Txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10px"
+                                android:textColor="@color/time_during"
+                                android:textSize="26px" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="18px"
+                            android:layout_marginTop="26px"
+                            android:background="#f5f5f5" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/attendanceImg"
+                        android:layout_width="66px"
+                        android:layout_height="66px"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="6px"
+                        android:layout_marginTop="6px"
+                        android:background="@drawable/icon_chuqin" />
+                </FrameLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/teach_layout"
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:layout_below="@+id/schoolTime_layout"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px">
+
+            <ImageView
+                android:id="@+id/lineTeach_img"
+                android:layout_width="4px"
+                android:layout_height="30px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@color/error_hint_txt_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@+id/line_img"
+                android:text="@string/course_teacher_text"
+                android:textColor="@color/banner_title_color"
+                android:textSize="32px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/teachInfo_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teach_layout">
+
+            <RelativeLayout
+                android:id="@+id/teachImg_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px">
+
+                <ImageView
+                    android:id="@+id/teachImg"
+                    android:layout_width="98px"
+                    android:layout_height="98px"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icon_avatar" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/teachImg_layout">
+
+                <TextView
+                    android:id="@+id/teachName_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="28px"
+                    android:layout_marginTop="38px"
+                    android:textColor="@color/banner_title_color"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/teacherName_Txt"
+                    android:layout_marginLeft="28px"
+                    android:layout_marginTop="32px"
+                    android:textColor="@color/card_item_txt"
+                    android:textSize="24px" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teachInfo_layout">
+            <!-- 回看，测试，下载布局实现!-->
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/popBgImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone" />
+</RelativeLayout>

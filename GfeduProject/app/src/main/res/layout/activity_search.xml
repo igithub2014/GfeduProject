@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100px">
+        <RelativeLayout
+            android:layout_width="600px"
+            android:layout_height="80px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/search_edit_bg">
+            <ImageView
+                android:id="@+id/searchLogo_img"
+                android:layout_width="24px"
+                android:layout_height="26px"
+                android:layout_marginLeft="16px"
+                android:layout_marginTop="16px"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_search_logo"/>
+            <EditText
+                android:id="@+id/editSearch_Txt"
+                android:layout_width="600px"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/searchLogo_img"
+                android:layout_marginLeft="18px"
+                android:hint="@string/search_hint_txt"
+                android:textColorHint="#c8c8c8"
+                android:textSize="28px"
+                android:background="@null"/>
+        </RelativeLayout>
+
+        <!--<android.support.v7.widget.SearchView-->
+            <!--android:id="@+id/search_View"-->
+            <!--android:layout_width="600px"-->
+            <!--android:layout_height="80px"-->
+            <!--app:iconifiedByDefault="false"-->
+            <!--android:background="@drawable/search_edit_bg"-->
+            <!--app:defaultQueryHint="@string/search_hint_txt"/>-->
+
+        <TextView
+            android:id="@+id/cancel_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:text="@string/cancel_txt"
+            android:textColor="@color/register_txt_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_layout"
+        android:background="#f2f2f2">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</RelativeLayout>

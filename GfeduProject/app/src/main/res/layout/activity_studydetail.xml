@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/input_bg_color">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/base_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/spe_line_img"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@+id/title_layout"
+        android:layout_centerVertical="true"
+        android:background="#bbbbbb" />
+
+    <RelativeLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="158px"
+        android:layout_below="@+id/spe_line_img">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/timeDru_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="66px"
+                    android:layout_marginTop="52px"
+                    android:lineSpacingExtra="2dp"
+                    android:text="@string/test_txt"
+                    android:textColor="@color/banner_title_color"
+                    android:textSize="24px" />
+
+                <TextView
+                    android:id="@+id/day_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="64px"
+                    android:text="45天"
+                    android:textColor="@color/error_hint_txt_color"
+                    android:textSize="56px" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <ImageView
+                    android:layout_width="2px"
+                    android:layout_height="100px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="#dddddd" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true">
+
+                    <jc.cici.android.atom.view.ScoreProgressBar
+                        android:id="@+id/scoreProgressBar"
+                        android:layout_width="76px"
+                        android:layout_height="76px"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30px"
+                        android_custom:roundColor="@color/banner_color"
+                        android_custom:roundProgressColor="@color/error_hint_txt_color"
+                        android_custom:textIsDisplayable="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/scoreProgressBar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12px"
+                        android:text="@string/study_progress_txt"
+                        android:textSize="24px" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/line_img"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@+id/progress_layout"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20px"
+        android:background="#dddddd" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line_img"
+        android:background="#F6F6F6">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="114px"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="100px"
+            android:paddingLeft="@dimen/card_padding"
+            android:paddingRight="@dimen/card_padding" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_view_bg">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/base_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/fastLogin_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title_layout">
+
+        <RelativeLayout
+            android:id="@+id/fast_phone_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="50px"
+            android:background="@drawable/ic_login_box_input">
+
+            <ImageView
+                android:id="@+id/phone_icon"
+                android:layout_width="32px"
+                android:layout_height="32px"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="16px"
+                android:src="@drawable/icon_phone" />
+
+            <EditText
+                android:id="@+id/fast_phone_txt"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/phone_icon"
+                android:background="@null"
+                android:ems="11"
+                android:hint="@string/register_phone_hintTxt"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:textColor="@color/input_txt_color"
+                android:textColorHint="@color/txt_hint_color"
+                android:textSize="28px" />
+
+            <ImageView
+                android:id="@+id/errorHint_phone_img"
+                android:layout_width="37px"
+                android:layout_height="32px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:background="@drawable/icon_input_error"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/errorPhone_fastHint_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fast_phone_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/fastLogin_identify_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorPhone_fastHint_txt"
+            android:layout_marginTop="13px">
+
+            <RelativeLayout
+                android:id="@+id/fastLogin_identifyInput_layout"
+                android:layout_width="450px"
+                android:layout_height="80px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/ic_login_box_input"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/identify_icon"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="16px"
+                    android:src="@drawable/icon_identifying_code" />
+
+                <EditText
+                    android:id="@+id/fastLogin_identify_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/identify_icon"
+                    android:background="@null"
+                    android:ems="4"
+                    android:hint="@string/identify_hint_txt"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/input_txt_color"
+                    android:textColorHint="@color/txt_hint_color"
+                    android:textSize="28px" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/fastLogin_identify_img"
+                android:layout_width="190px"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="30px"
+                android:layout_toRightOf="@+id/fastLogin_identifyInput_layout"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/fastLogin_errorIdentify_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fastLogin_identify_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/fastLogin_verify_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fastLogin_errorIdentify_txt"
+            android:layout_marginTop="13px">
+
+            <RelativeLayout
+                android:id="@+id/fastLogin_verifyInput_layout"
+                android:layout_width="450px"
+                android:layout_height="80px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/ic_login_box_input">
+
+                <ImageView
+                    android:id="@+id/verify_icon"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="16px"
+                    android:src="@drawable/icon_dynamic_code" />
+
+                <EditText
+                    android:id="@+id/fastLogin_verify_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/verify_icon"
+                    android:background="@null"
+                    android:ems="6"
+                    android:hint="@string/verify_hint_txt"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:singleLine="true"
+                    android:textColor="@color/input_txt_color"
+                    android:textColorHint="@color/txt_hint_color"
+                    android:textSize="28px" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/fastLogin_verify_Btn"
+                android:layout_width="190px"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="30px"
+                android:layout_toRightOf="@+id/fastLogin_verifyInput_layout"
+                android:background="@drawable/login_button_normal_bg"
+                android:clickable="false"
+                android:enabled="false"
+                android:text="@string/verify_button_txt"
+                android:textColor="@color/verity_send_txt"
+                android:textSize="28px" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/fastLogin_errorVerity_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fastLogin_verify_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="13px"
+            android:text=""
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="24px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/fastLogin_Btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fastLogin_errorVerity_txt"
+            android:layout_marginTop="81px">
+
+            <Button
+                android:id="@+id/fastLogin_Btn"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/login_button_bg"
+                android:text="@string/login_txt"
+                android:textColor="@color/input_bg_color"
+                android:textSize="32px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/fastLogin_userTip_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fastLogin_Btn_layout"
+            android:layout_marginTop="22px">
+
+            <TextView
+                android:id="@+id/userTipUnAction_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:text="@string/user_tip_txt"
+                android:textColor="@color/userTip_txt_color"
+                android:textSize="24px" />
+
+            <TextView
+                android:id="@+id/fastLogin_userTip_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userTipUnAction_txt"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:paddingTop="10px"
+                android:text="@string/user_actionTip_txt"
+                android:textColor="@color/error_hint_txt_color"
+                android:textSize="24px" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

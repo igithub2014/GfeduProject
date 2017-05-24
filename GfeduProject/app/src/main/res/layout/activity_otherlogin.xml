@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_view_bg">
+
+    <include
+        android:id="@+id/toolBar"
+        layout="@layout/base_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolBar">
+
+        <RelativeLayout
+            android:id="@+id/userImg_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/nike_Img"
+                android:layout_width="120px"
+                android:layout_height="120px"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="70px"
+                android:scaleType="fitXY"
+                android:src="@drawable/avatar_new" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nike_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userImg_layout">
+
+            <TextView
+                android:id="@+id/nike_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="28px"
+                android:textColor="@color/banner_title_color"
+                android:textSize="32px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nike_layout">
+
+            <RelativeLayout
+                android:id="@+id/ll_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="110px"
+                android:layout_marginRight="110px"
+                android:layout_marginTop="90px">
+
+                <ImageView
+                    android:id="@+id/tab_line"
+                    android:layout_width="1px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/tab_line_color" />
+
+                <TextView
+                    android:id="@+id/tab_noCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="89px"
+                    android:layout_toLeftOf="@+id/tab_line"
+                    android:text="@string/tab_noHaveCard_txt"
+                    android:textColor="@color/register_txt_color"
+                    android:textSize="32px" />
+
+                <TextView
+                    android:id="@+id/tab_haveCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="89px"
+                    android:layout_toRightOf="@+id/tab_line"
+                    android:text="@string/tab_haveCard_txt"
+                    android:textColor="@color/tab_line_color"
+                    android:textSize="32px" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tab_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10px"/>
+    </RelativeLayout>
+</RelativeLayout>
