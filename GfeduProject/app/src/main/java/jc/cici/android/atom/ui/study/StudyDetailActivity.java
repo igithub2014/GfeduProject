@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +73,9 @@ public class StudyDetailActivity extends BaseActivity {
     // viewPager
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-
+    // 圆点布局
+    @BindView(R.id.point_layout)
+    LinearLayout point_layout;
     // 标题内容
     private String strTitle;
     // 班级id
@@ -91,6 +96,10 @@ public class StudyDetailActivity extends BaseActivity {
     private String cutDownDayStr;
     // 学习进度
     private String studyPercent;
+    // 广告点数组
+    private ImageView[] imgViews;
+    // 广告点
+    private ImageView dots_img;
 
 
     @Override
@@ -200,6 +209,8 @@ public class StudyDetailActivity extends BaseActivity {
         // 设置进度
         scoreProgressBar.setProgress(50);
         cardPagerAdapter = new CardPagerAdapter(this,classId);
+
+        imgViews = new ImageView[5];
         for (int i = 0; i < 5; i++) {
             CardItem item = new CardItem();
             if (i % 2 == 0) {
@@ -226,8 +237,23 @@ public class StudyDetailActivity extends BaseActivity {
                 item.setStageInformation(1);
             }
             cardPagerAdapter.addCardItem(item);
+            // 添加白点
+            dots_img = new ImageView(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20, 20);
+            lp.setMargins(10,0,10,0);
+            dots_img.setLayoutParams(lp);
+            imgViews[i] = dots_img;
+            if (i == 0) { // 第一张默认加载
+                imgViews[i]
+                        .setBackgroundResource(R.drawable.icon_dian_clickable);
+            } else {
+                imgViews[i]
+                        .setBackgroundResource(R.drawable.icon_dian_normal);
+            }
+            point_layout.addView(imgViews[i]);
         }
-        mCardShadowTransformer = new ShadowTransformer(viewPager, cardPagerAdapter);
+
+        mCardShadowTransformer = new ShadowTransformer(viewPager, cardPagerAdapter,imgViews);
         viewPager.setAdapter(cardPagerAdapter);
         viewPager.setPageTransformer(false, mCardShadowTransformer);
         mCardShadowTransformer.enableScaling(true);
