@@ -12,6 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/flagCard_Img"
+            android:layout_width="94px"
+            android:layout_height="94px"
+            android:layout_gravity="right"
+            android:background="@drawable/icon_nostart" />
+
         <RelativeLayout
             android:id="@+id/titleCard_layout"
             android:layout_width="match_parent"
@@ -288,13 +295,6 @@
                     android:background="@drawable/line_div" />
             </RelativeLayout>
         </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/flagCard_Img"
-            android:layout_width="94px"
-            android:layout_height="94px"
-            android:layout_gravity="right"
-            android:background="@drawable/icon_nostart" />
     </FrameLayout>
 
 </android.support.v7.widget.CardView>
