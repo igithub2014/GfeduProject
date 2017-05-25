@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.Resource;
 import com.jiang.android.indicatordialog.IndicatorBuilder;
 import com.jiang.android.indicatordialog.IndicatorDialog;
 
@@ -33,10 +32,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import jc.cici.android.R;
 import jc.cici.android.atom.adapter.MoreAdapter;
 import jc.cici.android.atom.adapter.base.BaseAdapter;
-import jc.cici.android.atom.adapter.base.BaseRecycleerAdapter;
-import jc.cici.android.atom.adapter.base.BaseViewHolder;
 import jc.cici.android.atom.base.BaseActivity;
-import jc.cici.android.atom.bean.LessInfo;
 import jc.cici.android.atom.bean.LessonInfo;
 import jc.cici.android.atom.common.CommParam;
 import jc.cici.android.atom.common.Global;
@@ -44,7 +40,6 @@ import jc.cici.android.atom.http.HttpPostService;
 import jc.cici.android.atom.http.RetrofitOKManager;
 import jc.cici.android.atom.utils.ToolUtils;
 import jc.cici.android.atom.view.GlideCircleTransform;
-import jc.cici.android.atom.view.MoreView;
 import jc.cici.android.google.zxing.activity.CaptureActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
