@@ -7,6 +7,10 @@ package jc.cici.android.atom.bean;
 
 public class CourseInfo {
 
+    // 定义标题标识
+    private int index;
+    // 定义标题日期
+    private String Date;
     // 课程id
     private int LessonId;
     // 课程名称
@@ -25,6 +29,22 @@ public class CourseInfo {
     private String TeacherImg;
     // 上课地址
     private String LessonPlace;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
 
     public int getLessonId() {
         return LessonId;
