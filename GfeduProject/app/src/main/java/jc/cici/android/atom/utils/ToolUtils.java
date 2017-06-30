@@ -10,6 +10,10 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -299,5 +303,53 @@ public class ToolUtils {
         } else {
            return false;
         }
+    }
+
+    /**
+     * 将单位为dip的值转换成单位为px的值
+     *
+     * @param context
+     *            Context
+     * @param dipValue
+     *            dip值
+     * @return px值
+     */
+    public static int dip2px(Context context, float dipValue)
+    {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
+
+    /**
+     * 将单位为px的值转换成单位为dip的值
+     *
+     * @param context
+     *            Context
+     * @param pxValue
+     *            像素值
+     * @return dip值
+     */
+    public static int px2dip(Context context, float pxValue)
+    {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static String ioToBase64(String fileName) throws IOException {
+        String strBase64 = null;
+        try {
+            InputStream in = new FileInputStream(fileName);
+            // in.available()返回文件的字节长度
+            byte[] bytes = new byte[in.available()];
+            // 将文件中的内容读入到数组中
+            in.read(bytes);
+            strBase64 = new Base64Encoder().encode(bytes);  //将字节流数组转换为字符串
+            in.close();
+        } catch (FileNotFoundException fe) {
+            fe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return strBase64;
     }
 }
