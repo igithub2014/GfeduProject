@@ -27,10 +27,10 @@ import jc.cici.android.atom.view.GlideCircleTransform;
  * Created by atom on 2017/5/12.
  */
 
-public class CourseRecyclerAdapter extends BaseRecycleerAdapter<Course, CourseRecyclerAdapter.MyHolder> {
+public class CourseRecyclerAdapter extends BaseRecycleerAdapter<CourseInfo, CourseRecyclerAdapter.MyHolder> {
 
     private Context mCtx;
-    private List<Course> mItems;
+    private List<CourseInfo> mItems;
 
     public CourseRecyclerAdapter(Context context, List items) {
         super(context, items);
@@ -45,12 +45,14 @@ public class CourseRecyclerAdapter extends BaseRecycleerAdapter<Course, CourseRe
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, Course item, int position) {
+    public void onBindViewHolder(MyHolder holder, CourseInfo item, int position) {
 
         if (holder instanceof MyHolder) {
             MyHolder myHolder = holder;
+            // 设置标题
+            TitleSetting(holder, position);
             // 设置item中Image布局
-            Glide.with(mCtx).load(item.getLessonData().get(position).getTeacherImg())
+            Glide.with(mCtx).load(item.getTeacherImg())
                     .placeholder(R.drawable.avatar_new) //加载中显示的图片
                     .error(R.drawable.avatar_new) //加载失败时显示的图片
                     .crossFade(1000) //淡入显示的时间,注意:如果设置了这个,则必须要去掉asBitmap
@@ -61,56 +63,32 @@ public class CourseRecyclerAdapter extends BaseRecycleerAdapter<Course, CourseRe
                     .transform(new GlideCircleTransform(mCtx)) // 设置圆角
                     .into(myHolder.courseItem_Img);
             // 老师名称
-            myHolder.teacherName_Txt.setText(item.getLessonData().get(position).getTeacherName());
+            myHolder.teacherName_Txt.setText(item.getTeacherName());
             // 课程名称
-            myHolder.courseName_Txt.setText(item.getLessonData().get(position).getLessonName());
-            int lessDateType = item.getLessonData().get(position).getLessonDateType();
+            myHolder.courseName_Txt.setText(item.getLessonName());
+            int lessDateType = item.getLessonDateType();
             if (1 == lessDateType) {
                 // 课程时间
-                myHolder.courseTime_Txt.setText("上午 " + item.getLessonData().get(position).getLessonStartTime()
+                myHolder.courseTime_Txt.setText("上午 " + item.getLessonStartTime()
                         + "-"
-                        + item.getLessonData().get(position).getLessonEndTime());
+                        + item.getLessonEndTime());
             } else if (2 == lessDateType) {
                 // 课程时间
-                myHolder.courseTime_Txt.setText("中午 " + item.getLessonData().get(position).getLessonStartTime()
+                myHolder.courseTime_Txt.setText("中午 " + item.getLessonStartTime()
                         + "-"
-                        + item.getLessonData().get(position).getLessonEndTime());
+                        + item.getLessonEndTime());
             } else if (3 == lessDateType) {
                 // 课程时间
-                myHolder.courseTime_Txt.setText("下午 " + item.getLessonData().get(position).getLessonStartTime()
+                myHolder.courseTime_Txt.setText("下午 " + item.getLessonStartTime()
                         + "-"
-                        + item.getLessonData().get(position).getLessonEndTime());
+                        + item.getLessonEndTime());
             }
             // 课程地点
-            myHolder.address_Txt.setText(item.getLessonData().get(position).getLessonPlace());
-
-            if (position == 0) { // 第一次悬浮显示item
-                myHolder.header_title_layout.setVisibility(View.VISIBLE);
-                // 判断是否是当天
-                boolean isCurrentDay = ToolUtils.isCurrentDay(item.getDate());
-                if (isCurrentDay) { // 表示今日
-                    // 填充内容
-                    myHolder.today_Txt.setText("今日");
-                } else { // 非今日情况
-                    String dateStr = item.getDate();
-                    String[] str = dateStr.split("-");
-                    String newStr = str[2] + str[1] + "月";
-                    // 填充内容
-                    myHolder.today_Txt.setText(ToolUtils.setTextSize(mCtx, newStr, 1, 5, R.style.style2, R.style.style3), TextView.BufferType.SPANNABLE);
-                }
-            } else {
-                if (!mItems.get(position).getDate().equals(mItems.get(position - 1).getDate())) {
-                    myHolder.header_title_layout.setVisibility(View.VISIBLE);
-                    // 填充内容
-                    String dateStr = item.getDate();
-                    String[] str = dateStr.split("-");
-                    String newStr = str[2] + str[1] + "月";
-                    myHolder.today_Txt.setText(ToolUtils.setTextSize(mCtx, newStr, 1, 5, R.style.style2, R.style.style3), TextView.BufferType.SPANNABLE);
-                    myHolder.qr_layout.setVisibility(View.GONE);
-                } else {
-                    myHolder.header_title_layout.setVisibility(View.GONE);
-                }
-            }
+            myHolder.address_Txt.setText(item.getLessonPlace());
+            String[] str = item.getDate().split("日");
+            String newStr = str[0] + str[1];
+            myHolder.today_Txt.setText(ToolUtils.setTextSize(mCtx, newStr, 1, newStr.length(), R.style.style2, R.style.style3), TextView.BufferType.SPANNABLE);
+//           boolean isCurrentDay = ToolUtils.isCurrentDay(item.getDate());
         }
     }
 
@@ -160,6 +138,27 @@ public class CourseRecyclerAdapter extends BaseRecycleerAdapter<Course, CourseRe
             super(itemView);
             // 添加
             ButterKnife.bind(this, itemView);
+        }
+    }
+
+    /**
+     * 章节标题设置
+     *
+     * @param holder
+     * @param position
+     */
+    private void TitleSetting(MyHolder holder, int position) {
+        boolean b = true;
+        if (position > 0) {
+            b = mItems.get(position).getIndex() == mItems.get(
+                    position - 1).getIndex();
+        }
+        if (position == 0 || !b) {
+            holder.header_title_layout.setVisibility(View.VISIBLE);
+            holder.today_Txt.setVisibility(View.VISIBLE);
+        } else {
+            holder.header_title_layout.setVisibility(View.GONE);
+            holder.today_Txt.setVisibility(View.GONE);
         }
     }
 }

@@ -17,7 +17,10 @@ import java.util.List;
 
 import jc.cici.android.R;
 import jc.cici.android.atom.bean.CardItem;
+import jc.cici.android.atom.ui.note.NoteAllActivity;
+import jc.cici.android.atom.ui.note.QuestionAllActivity;
 import jc.cici.android.atom.ui.study.CourseDetialActivity;
+import jc.cici.android.atom.utils.ToolUtils;
 
 
 /**
@@ -123,8 +126,8 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         ImageView goClickableMat_Img = (ImageView) view.findViewById(R.id.goClickableMat_Img);
 
         // 填充内容
-        courseType_Txt.setText(cardItem.getStageName());
-        courseDru_Txt.setText(cardItem.getStageStartTime() + "-" + cardItem.getStageEndTime());
+        courseType_Txt.setText(ToolUtils.replaceAllChar(cardItem.getStageName()));
+        courseDru_Txt.setText(cardItem.getStageStartTime().replaceAll("-",".") + "-" + cardItem.getStageEndTime().replaceAll("-","."));
         courseDay_Txt.setText(cardItem.getStagePeriod() + "学时");
         typeCard_Txt.setText(cardItem.getStageType());
 
@@ -135,6 +138,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         } else if ("在线".equals(cardItem.getStageType())) {
             icon_typeCard.setBackgroundResource(R.drawable.icon_typecard_zx);
         }
+        // 课表
         // 问题标记
         int problemFlag = cardItem.getStageProblem();
         if (problemFlag == 1) { // 已启用状态
@@ -210,7 +214,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
         int status = cardItem.getStageStatus();
         switch (status) {
-            case 0: // 正常状态
+            case 1: // 正常状态
                 if ("面授".equals(cardItem.getStageType())) {
                     flagCard_Img.setBackgroundResource(R.drawable.icon_start_ms);
                     icon_form_Imag.setBackgroundResource(R.drawable.icon_form_ms);
@@ -231,15 +235,17 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                     goClickableFrom_Img.setClickable(true);
                 }
                 break;
-            case 1: // 未开始状态
+            case 0: // 未开始状态
                 flagCard_Img.setBackgroundResource(R.drawable.icon_nostart);
+                goClickableFrom_Img.setBackgroundResource(R.drawable.icon_go_normal);
                 goClickableFrom_Img.setEnabled(false);
                 goClickableFrom_Img.setClickable(false);
                 break;
             case 2: // 已结束状态
                 flagCard_Img.setBackgroundResource(R.drawable.icon_end);
-                goClickableFrom_Img.setEnabled(true);
-                goClickableFrom_Img.setClickable(true);
+                goClickableFrom_Img.setBackgroundResource(R.drawable.icon_go_normal);
+                goClickableFrom_Img.setEnabled(false);
+                goClickableFrom_Img.setClickable(false);
                 break;
             default:
                 break;
@@ -273,10 +279,22 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                         mCtx.startActivity(it);
                         break;
                     case R.id.goClickableQues_Img: // 问题按钮
-                        Toast.makeText(mCtx, "item被点击了", Toast.LENGTH_SHORT).show();
+                        Intent quesitonIt = new Intent(mCtx, QuestionAllActivity.class);
+                        Bundle quesBundle = new Bundle();
+                        quesBundle.putString("titleName",mData.get(position).getStageName());
+                        quesBundle.putInt("classId",mClassID);
+                        quesBundle.putInt("stageId", mData.get(position).getStageId());
+                        quesitonIt.putExtras(quesBundle);
+                        mCtx.startActivity(quesitonIt);
                         break;
                     case R.id.goClickableNote_Img: // 笔记按钮
-                        Toast.makeText(mCtx, "item被点击了", Toast.LENGTH_SHORT).show();
+                        Intent noteIt = new Intent(mCtx, NoteAllActivity.class);
+                        Bundle noteBundle = new Bundle();
+                        noteBundle.putString("titleName",mData.get(position).getStageName());
+                        noteBundle.putInt("classId",mClassID);
+                        noteBundle.putInt("stageId", mData.get(position).getStageId());
+                        noteIt.putExtras(noteBundle);
+                        mCtx.startActivity(noteIt);
                         break;
                     case R.id.goClickableMat_Img: // 资料按钮
                         Toast.makeText(mCtx, "item被点击了", Toast.LENGTH_SHORT).show();

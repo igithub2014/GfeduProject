@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,8 +42,9 @@ public class HistoryRecyclerAdapter extends BaseRecycleerAdapter<HistoryLesson, 
     public void onBindViewHolder(MyHolder holder, HistoryLesson item, int position) {
 
         String dateStr = item.getLessonDate();
-        String[] str = dateStr.split("-");
-        String newStr = str[2] + str[1] + "月";
+        String[] str = dateStr.split("/");
+        String subStr = str[2].substring(0,2);
+        String newStr = subStr + str[1] + "月";
         holder.date_Txt.setText(ToolUtils.setTextSize(mCtx,newStr,1,newStr.length(),R.style.style4,R.style.style5));
         holder.time_Txt.setText(item.getLessonStartTime()+item.getLessonEndTime());
         holder.courseContent_Txt.setText(item.getLessonName());

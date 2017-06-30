@@ -3,7 +3,9 @@ package jc.cici.android.atom.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,74 +29,61 @@ import jc.cici.android.atom.utils.ToolUtils;
  * Created by atom on 2017/5/9.
  */
 
-public class StudyRecyclerAdapter extends BaseRecycleerAdapter<StudyBean, StudyRecyclerAdapter.MyHolder> {
+public class StudyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int TYPE_HEADER = 0; // 带有header
-    //    private static final int TYPE_FOOTER = 1; // 带有footer
-    private static final int TYPE_NORMAL = 2; // 不带有header和footer
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_NORMAL = 1;
+
     private Context mCtx;
-    private List<StudyBean> mDatas;
-    private View mHeaderView;
-    private View mFooterView;
+    private ArrayList<StudyBean> mDatas = new ArrayList<>();
 
-    public StudyRecyclerAdapter(Context context, List<StudyBean> items) {
-        super(context, items);
+    private View mHeaderView;
+
+    private OnItemClickListener mListener;
+
+    public StudyRecyclerAdapter(Context context, ArrayList<StudyBean> items, OnItemClickListener li) {
         this.mCtx = context;
         this.mDatas = items;
+        this.mListener = li;
     }
 
-    public View getmHeaderView() {
-        return mHeaderView;
-    }
-
-    public void setmHeaderView(View mHeaderView) {
-        this.mHeaderView = mHeaderView;
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
         notifyItemInserted(0);
     }
 
-    public View getmFooterView() {
-        return mFooterView;
+    public View getHeaderView() {
+        return mHeaderView;
     }
 
-    public void setmFooterView(View mFooterView) {
-        this.mFooterView = mFooterView;
-        notifyItemInserted(getItemCount() - 1);
-    }
 
     @Override
     public int getItemViewType(int position) {
-        if (mHeaderView == null && mFooterView == null) {
-            return TYPE_NORMAL;
-        }
-        if (position == 0) {
-            return TYPE_HEADER;
-        }
-//        if (position == getItemCount() - 1) {
-//            return TYPE_FOOTER;
-//        }
+        if (mHeaderView == null) return TYPE_NORMAL;
+        if (position == 0) return TYPE_HEADER;
         return TYPE_NORMAL;
     }
 
     @Override
-    public MyHolder onCreateViewHolder(View view, int viewType) {
-        if (mHeaderView != null && viewType == TYPE_HEADER) {
-            return new MyHolder(mHeaderView);
-        }
-//        if (mFooterView != null && viewType == TYPE_FOOTER) {
-//            return new MyHolder(mFooterView);
-//        }
-        return new MyHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (mHeaderView != null && viewType == TYPE_HEADER) return new Holder(mHeaderView);
+        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycleview_studyhome, parent, false);
+        return new Holder(layout);
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, StudyBean item, int position) {
-        if (getItemViewType(position) == TYPE_NORMAL) { // 正常情况数据
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+
+        if (getItemViewType(position) == TYPE_HEADER) return;
+        final int pos = getRealPosition(viewHolder);
+        final StudyBean item = mDatas.get(pos);
+        if (viewHolder instanceof Holder) {
             // 列表面授面授(在线，直播)课程名称
-            holder.title_Item_Txt.setText(ToolUtils.replaceAllChar(item.getClassName()));
+            ((Holder) viewHolder).title_Item_Txt.setText(ToolUtils.replaceAllChar(item.getClassName()));
             // 列表面授(在线，直播)课程时间
-            holder.time_Item_Txt.setText(item.getClassStartTime()+"-"+item.getClassEndTime());
+            ((Holder) viewHolder).time_Item_Txt.setText(item.getClassStartTime().replaceAll("-",".") + "-" + item.getClassEndTime().replaceAll("-","."));
             // 设置课程类型(面授,在线,直播)
-            holder.type_Item_Txt.setText(ToolUtils.replaceAllChar(item.getClassType()));
+            ((Holder) viewHolder).type_Item_Txt.setText(ToolUtils.replaceAllChar(item.getClassType()));
             // 设置item中Image布局
             Glide.with(mCtx).load(item.getClassImg())
                     .placeholder(R.drawable.item_studyhome_img) //加载中显示的图片
@@ -103,85 +93,83 @@ public class StudyRecyclerAdapter extends BaseRecycleerAdapter<StudyBean, StudyR
                     .centerCrop() // 中心剪裁
                     .skipMemoryCache(true) // 跳过缓存
                     .diskCacheStrategy(DiskCacheStrategy.RESULT) // 磁盘缓存最终设置图片
-                    .into(holder.courseImgView);
-            int status = item.getClassStatus();
+                    .into(((Holder) viewHolder).courseImgView);
+            int status = mDatas.get(pos).getClassStatus();
             switch (status) {
                 case 1: // 正常情况
-                    holder.noSelect_Img.setVisibility(View.GONE);
+                    ((Holder) viewHolder).noSelect_Img.setVisibility(View.GONE);
                     break;
                 case -1: // 欠费锁定
-                    holder.hint_Item_txt.setText("欠费中，补齐费用后可解锁");
-                    holder.lockImg.setVisibility(View.VISIBLE);
-                    holder.noSelect_Img.setVisibility(View.VISIBLE);
+                    ((Holder) viewHolder).hint_Item_txt.setText("欠费中，补齐费用后可解锁");
+                    ((Holder) viewHolder).lockImg.setVisibility(View.VISIBLE);
+                    ((Holder) viewHolder).noSelect_Img.setVisibility(View.VISIBLE);
                     break;
                 case 0: // 未开始情况
-                    holder.title_Item_Txt.setTextColor(Color.parseColor("#c8c8c8"));
-                    holder.time_Item_Txt.setTextColor(Color.parseColor("#c8c8c8"));
-                    holder.type_Item_Txt.setTextColor(Color.parseColor("#c8c8c8"));
-                    holder.noSelect_Img.setText(R.string.nostart);
-                    holder.noSelect_Img.setVisibility(View.VISIBLE);
+                    ((Holder) viewHolder).title_Item_Txt.setTextColor(Color.parseColor("#c8c8c8"));
+                    ((Holder) viewHolder).time_Item_Txt.setTextColor(Color.parseColor("#c8c8c8"));
+                    ((Holder) viewHolder).type_Item_Txt.setTextColor(Color.parseColor("#c8c8c8"));
+                    ((Holder) viewHolder).noSelect_Img.setText(R.string.nostart);
+                    ((Holder) viewHolder).noSelect_Img.setVisibility(View.VISIBLE);
                     break;
                 case 2: // 过期情况
                     break;
                 default:
                     break;
             }
-        } else if (getItemViewType(position) == TYPE_HEADER) { // 添加头部情况
-            return;
+            if (mListener == null) return;
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(pos, item);
+                }
+            });
         }
-//        else { // 添加脚部情况
-//            return;
-//        }
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.item_recycleview_studyhome;
-    }
-
-    class MyHolder extends RecyclerView.ViewHolder {
-
-        // 标记图片
-        @BindView(R.id.giveFlag_Img)
-        ImageView giveFlag_Img;
-        // 标记文字
-        @BindView(R.id.noSelect_Img)
-        Button noSelect_Img;
-        // 锁定图片
-        @BindView(R.id.lockImg)
-        Button lockImg;
-        // item 课程图片
-        @BindView(R.id.courseImgView)
-        ImageView courseImgView;
-        // 课程名
-        @BindView(R.id.title_Item_Txt)
-        TextView title_Item_Txt;
-        // 课程时间
-        @BindView(R.id.time_Item_Txt)
-        TextView time_Item_Txt;
-        //课程类型(面授 or 在线)
-        @BindView(R.id.type_Item_Txt)
-        TextView type_Item_Txt;
-        // 是否过期
-        @BindView(R.id.hint_Item_txt)
-        TextView hint_Item_txt;
-
-        public MyHolder(View itemView) {
-            super(itemView);
-            //如果是headerView或者是footerView,直接返回
-            if (itemView == mHeaderView) {
-                return;
-            }
-            if (itemView == mFooterView) {
-                return;
-            }
-            // 添加
-            ButterKnife.bind(this, itemView);
-        }
+    public int getRealPosition(RecyclerView.ViewHolder holder) {
+        int position = holder.getLayoutPosition();
+        return mHeaderView == null ? position : position - 1;
     }
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mHeaderView == null ? mDatas.size() : mDatas.size() + 1;
+    }
+
+    class Holder extends RecyclerView.ViewHolder {
+
+        // 标记图片
+        ImageView giveFlag_Img;
+        // 标记文字
+        Button noSelect_Img;
+        // 锁定图片
+        Button lockImg;
+        // 课程图片
+        ImageView courseImgView;
+        // 课程名
+        TextView title_Item_Txt;
+        // 课程时间
+        TextView time_Item_Txt;
+        // 课程类型(面授 OR 在线)
+        TextView type_Item_Txt;
+        // 是否过期
+        TextView hint_Item_txt;
+
+        public Holder(View itemView) {
+            super(itemView);
+            if (itemView == mHeaderView) return;
+            giveFlag_Img = (ImageView) itemView.findViewById(R.id.giveFlag_Img);
+            noSelect_Img = (Button) itemView.findViewById(R.id.noSelect_Img);
+            lockImg = (Button) itemView.findViewById(R.id.lockImg);
+            courseImgView = (ImageView) itemView.findViewById(R.id.courseImgView);
+            title_Item_Txt = (TextView) itemView.findViewById(R.id.title_Item_Txt);
+            time_Item_Txt = (TextView) itemView.findViewById(R.id.time_Item_Txt);
+            type_Item_Txt = (TextView) itemView.findViewById(R.id.type_Item_Txt);
+            hint_Item_txt = (TextView) itemView.findViewById(R.id.hint_Item_txt);
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, StudyBean data);
     }
 }
