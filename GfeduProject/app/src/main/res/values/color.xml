@@ -26,4 +26,9 @@
     <color name="card_item_txt">#575757</color>
     <color name="item_date_txt">#0f0f0f</color>
     <color name="search_edit_txt">#e3e4e6</color>
+    <color name="tab_background_color">#fafafa</color>
+    <color name="note_txt_color">#c8c8c8</color>
+    <color name="color_f6">#f6f6f6</color>
+    <color name="color_gallery">#E1E0DE</color>
+    <color name="bg">#86222222</color>
 </resources>

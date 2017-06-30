@@ -112,9 +112,9 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="18px"
+                                android:layout_width="24px"
                                 android:layout_height="24px"
-                                android:background="@drawable/icon_address"
+                                android:background="@drawable/icon_time_click"
                                 android:gravity="left" />
 
                             <TextView

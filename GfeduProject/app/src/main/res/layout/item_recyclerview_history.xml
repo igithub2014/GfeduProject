@@ -9,10 +9,6 @@
         android:background="@color/input_bg_color"
         android:layout_marginTop="18px">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -73,6 +69,5 @@
                 android:layout_marginRight="6px"
                 android:layout_marginTop="6px"
                 android:background="@drawable/icon_queqin" />
-        </FrameLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

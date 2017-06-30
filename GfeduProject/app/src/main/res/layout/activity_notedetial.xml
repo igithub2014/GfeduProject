@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/_ffffff">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/base_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#dddddd"
+        android:layout_below="@+id/title_layout"/>
+
+    <RelativeLayout
+        android:id="@+id/content_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px">
+
+        <RelativeLayout
+            android:id="@+id/courseOrPro_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/map_knowledge_txt"
+                    android:textColor="@color/error_hint_txt_color"
+                    android:textSize="24px" />
+
+                <TextView
+                    android:id="@+id/course_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/error_hint_txt_color"
+                    android:textSize="24px" />
+
+                <ImageView
+                    android:layout_width="12px"
+                    android:layout_height="26px"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10px"
+                    android:background="@drawable/icon_coming" />
+
+                <TextView
+                    android:id="@+id/project_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10px"
+                    android:textColor="@color/error_hint_txt_color"
+                    android:textSize="24px" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/zanCount_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textSize="24px"
+                android:textColor="@color/userTip_txt_color"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/zanBtn"
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/zanCount_txt"
+                android:layout_marginRight="10px"
+                android:background="@drawable/icon_zan"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/courseOrPro_layout">
+
+            <RelativeLayout
+                android:id="@+id/noteDetailTxt_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_layout">
+
+                <TextView
+                    android:id="@+id/noteDetail_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34px"
+                    android:lineSpacingMultiplier="1.5"
+                    android:textColor="@color/banner_title_color"
+                    android:textSize="24px" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/shotScreen_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/noteDetailTxt_layout">
+
+                <ImageView
+                    android:id="@+id/shotScreenDetail_img"
+                    android:layout_width="222px"
+                    android:layout_height="148px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="24px"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dateDetail_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shotScreen_layout"
+                android:layout_marginTop="22px">
+
+                <TextView
+                    android:id="@+id/dateDetailTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/note_txt_color"
+                    android:textSize="20px" />
+
+                <TextView
+                    android:id="@+id/record_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/userTip_txt_color"
+                    android:textSize="24px" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relation_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_below="@+id/dateDetail_layout"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:background="#dddddd" />
+
+                <TextView
+                    android:id="@+id/relativeVideo_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/error_hint_txt_color"
+                    android:textSize="24px" />
+
+                <ImageView
+                    android:layout_width="12px"
+                    android:layout_height="26px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_back" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/div_layout"
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:layout_below="@+id/content_detail"
+        android:background="#fafafa"></RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/div_layout"
+        android:layout_marginTop="20px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px">
+
+        <TextView
+            android:id="@+id/switch_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/error_hint_txt_color"
+            android:textSize="26px" />
+
+        <jc.cici.android.atom.view.WiperSwitch
+            android:id="@+id/wiperSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="22px"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/switch_txt"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</RelativeLayout>

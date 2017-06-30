@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/_ffffff">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/base_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/divImg"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/title_layout"
+        android:background="#dddddd" />
+
+    <RelativeLayout
+        android:id="@+id/select_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="94px"
+        android:layout_below="@+id/divImg">
+
+        <TextView
+            android:id="@+id/subject_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:textColor="@color/banner_title_color"
+            android:textSize="28px"
+            android:hint="@string/note_hint_txt"/>
+
+        <ImageView
+            android:layout_width="14px"
+            android:layout_height="20px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="44px"
+            android:background="@drawable/icon_comingin" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#dddddd" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_item_layout">
+
+        <EditText
+            android:id="@+id/addNote_edit"
+            android:layout_width="match_parent"
+            android:layout_height="220px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="34px"
+            android:background="@drawable/add_note_input_bg"
+            android:gravity="top"
+            android:hint="@string/add_note_hint_txt"
+            android:lineSpacingMultiplier="1.5"
+            android:padding="10px"
+            android:textColor="@color/banner_title_color"
+            android:textSize="28px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/addImgFrame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:layout_below="@+id/edit_layout"
+        android:layout_marginTop="10px">
+
+        <LinearLayout
+            android:id="@+id/addImg_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/addImg"
+                android:layout_width="30px"
+                android:layout_height="24px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30px"
+                android:background="@drawable/icon_addimg" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10px"
+                android:text="@string/add_img_hint_txt"
+                android:textColor="@color/userTip_txt_color"
+                android:textSize="20px" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/grid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="282px"
+        android:layout_below="@+id/addImgFrame_layout"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:layout_marginTop="10px"
+        android:background="@drawable/add_note_input_bg">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeAnswer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grid_layout"
+        android:layout_marginTop="66px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/rel_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/relative_txt"
+            android:textColor="@color/banner_title_color"
+            android:textSize="26px"/>
+        <ImageView
+            android:id="@+id/re_divImg"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/rel_txt"
+            android:layout_marginTop="20px"
+            android:background="#dddddd" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/relativeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/re_divImg"
+            android:padding="20px">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</RelativeLayout>

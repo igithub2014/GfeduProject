@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/base_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/title_layout"
+        android:background="#dddddd" />
+    <RelativeLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentBottom="true"
+        android:background="#fbfbfb">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px" 
+            android:layout_alignParentTop="true"
+            android:background="#d8d8d8"/>
+        <EditText
+            android:id="@+id/inputTxt"
+            android:layout_width="546px"
+            android:layout_height="68px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/input_bg"
+            android:hint="@string/input_hint_txt"
+            android:textSize="28px"
+            android:textColorHint="#aaaaaa"
+            android:textColor="#575757"/>
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="114px"
+            android:layout_height="58px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15px"
+            android:layout_centerVertical="true"
+            android:background="@drawable/login_button_bg"
+            android:text="@string/comment_txt"
+            android:textSize="28px"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll"
+        android:layout_above="@+id/edit_layout">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</RelativeLayout>

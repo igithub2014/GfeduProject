@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#dddddd" />
+
+        <RelativeLayout
+            android:id="@+id/ourQues_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="30px"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/userImg_ques"
+                android:layout_width="80px"
+                android:layout_height="80px"
+                android:layout_marginTop="34px"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="30px"
+            android:layout_toRightOf="@+id/ourQues_layout">
+
+            <RelativeLayout
+                android:id="@+id/user_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/userName_ques"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="52px"
+                    android:textColor="#111"
+                    android:textSize="28px"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/ourQuesDate_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="52px"
+                    android:textColor="@color/note_txt_color"
+                    android:textSize="20px"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/quesTxt_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_layout">
+
+                <TextView
+                    android:id="@+id/ques_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="34px"
+                    android:ellipsize="end"
+                    android:lineSpacingMultiplier="1.5"
+                    android:maxLines="2"
+                    android:textColor="@color/banner_title_color"
+                    android:textSize="24px" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/shotScreen_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quesTxt_layout"
+                android:layout_marginTop="24px">
+
+                <ImageView
+                    android:id="@+id/shotScreen1_img"
+                    android:layout_width="220px"
+                    android:layout_height="148px"
+                    android:layout_alignParentLeft="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/shotScreen2_img"
+                    android:layout_width="220px"
+                    android:layout_height="148px"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/shotScreen3_img"
+                    android:layout_width="220px"
+                    android:layout_height="148px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shotScreen_layout"
+                android:layout_marginTop="22px">
+
+                <TextView
+                    android:id="@+id/dateTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shotScreen_img"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/note_txt_color"
+                    android:textSize="20px"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/divLine"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/date_layout"
+                android:layout_marginTop="18px"
+                android:background="#dddddd" />
+
+            <RelativeLayout
+                android:id="@+id/relationAndStatus_layout"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/divLine">
+
+                <LinearLayout
+                    android:id="@+id/relation_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/relativeQues_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/register_txt_color"
+                        android:textSize="24px"
+                        android:maxEms="8"
+                        android:lines="1"
+                        android:ellipsize="end"/>
+
+                    <ImageView
+                        android:id="@+id/clickImg"
+                        android:layout_width="24px"
+                        android:layout_height="24px"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="28px"
+                        android:background="@drawable/icon_time_click"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/screenTime_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8px"
+                        android:textColor="@color/note_txt_color"
+                        android:textSize="20px"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/relation_layout">
+
+                    <ImageView
+                        android:id="@+id/quesStatus_txt"
+                        android:layout_width="70px"
+                        android:layout_height="32px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="30px"
+                        android:background="@drawable/flag_no_answer_bg" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/response_layout"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/divLine"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/responseCount_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35px"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/button_response_bg"
+                    android:text="@string/response_txt"
+                    android:textColor="@color/error_stroke_color"
+                    android:textSize="20px" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/responseCount_txt"
+                        android:layout_centerVertical="true">
+                        <LinearLayout
+                            android:id="@+id/zan_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="86px"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/zanBtn"
+                                android:layout_width="24px"
+                                android:layout_height="24px"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_toLeftOf="@+id/zanResponseCount"
+                                android:background="@drawable/icon_zan" />
+                            <TextView
+                                android:id="@+id/zanResponseCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="14px"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@color/note_txt_color"
+                                android:textSize="22px" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/commit_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/zan_layout"
+                            android:layout_marginRight="40px">
+                            <Button
+                                android:id="@+id/commit_Btn"
+                                android:layout_width="24px"
+                                android:layout_height="24px"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_toLeftOf="@+id/commitCount_txt"
+                                android:background="@drawable/icon_commit" />
+                            <TextView
+                                android:id="@+id/commitCount_txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@color/note_txt_color"
+                                android:textSize="22px"
+                                android:layout_marginLeft="14px"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/bestAnswer_Img"
+        android:layout_width="30px"
+        android:layout_height="34px"
+        android:layout_gravity="right"
+        android:background="@drawable/icon_best_answer"
+        android:visibility="gone"/>
+</FrameLayout>

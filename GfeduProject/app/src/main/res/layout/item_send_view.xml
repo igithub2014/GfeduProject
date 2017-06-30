@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp">
+
+    <RelativeLayout
+        android:id="@+id/timeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#333333"
+            android:textSize="24px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bubbleText_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/timeLayout"
+        android:layout_marginRight="30px"
+        android:layout_marginTop="20px">
+
+        <com.github.library.bubbleview.BubbleTextView
+            android:id="@+id/bubble_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/ui_10_dip"
+            android:textColor="@color/white"
+            app:angle="8dp"
+            app:arrowCenter="true"
+            app:arrowHeight="10dp"
+            app:arrowLocation="right"
+            app:arrowPosition="14dp"
+            app:arrowWidth="8dp"
+            app:bubbleColor="#3B71C0" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bubbleImage_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/bubbleText_layout"
+        android:layout_marginRight="30px"
+        android:layout_marginTop="20px">
+
+        <com.github.library.bubbleview.BubbleImageView
+            android:id="@+id/bubble_img"
+            android:layout_width="350px"
+            android:layout_height="200px"
+            android:padding="@dimen/ui_10_dip"
+            app:angle="8dp"
+            app:arrowCenter="true"
+            app:arrowHeight="10dp"
+            app:arrowLocation="right"
+            app:arrowPosition="14dp"
+            app:arrowWidth="8dp"
+            app:bubbleColor="#3B71C0" />
+    </RelativeLayout>
+</RelativeLayout>

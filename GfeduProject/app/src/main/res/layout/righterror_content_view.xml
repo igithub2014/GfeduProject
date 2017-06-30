@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/judgescrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/webView_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <WebView
+                    android:id="@+id/judge_webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/answer_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:layout_marginTop="10dp" >
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"/>
+
+                <Button
+                    android:id="@+id/btnA_judge"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_toLeftOf="@+id/img"
+                    android:background="@drawable/yuan_btn_bg"
+                    android:textColor="#2FCEDB"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btnB_judge"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/img"
+                    android:background="@drawable/kongxinyuan_btn_bg"
+                    android:textColor="#2FCEDB"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

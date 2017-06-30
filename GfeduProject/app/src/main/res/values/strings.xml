@@ -50,4 +50,17 @@
     <string name="nostart">未开始</string>
     <string name="course_note_txt">本课笔记</string>
     <string name="course_ques_txt">本课提问</string>
+    <string name="add_note_hint_txt">请输入笔记内容</string>
+    <string name="add_img_hint_txt">添加图片</string>
+    <string name="map_knowledge_txt">知识地图：</string>
+    <string name="response_txt">0追问</string>
+    <string name="relative_txt">相关问题</string>
+    <string name="delete_txt">删除</string>
+    <string name="no_answer">暂无答案</string>
+    <string name="zhuiwen_txt">我要追问</string>
+    <string name="input_hint_txt">我也说一句</string>
+    <string name="comment_txt">评论</string>
+    <string name="note_hint_txt">请先选择笔记对应科目</string>
+    <string name="test_report_txt">测试报告</string>
+    <string name="test_reset_txt">重做</string>
 </resources>

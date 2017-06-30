@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/subDialog_layout"
+    style="@style/SubmitDialogStyle"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="#ececec"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/txtdialog_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/txt_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="您还有题目未做完，您确定要交卷嘛"
+            android:textColor="#333"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dialog_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtdialog_layout">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/shot_line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btndialog_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@+id/dialog_layout" >
+
+        <ImageView
+            android:id="@+id/line_submit_img"
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shot_line" />
+
+        <Button
+            android:id="@+id/go_on"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/line_submit_img"
+            android:background="#ececec"
+            android:text="继续做题"
+            android:textColor="#3c3c3c"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/sumbit_btn"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/line_submit_img"
+            android:background="#ececec"
+            android:text="提交试卷"
+            android:textColor="#dd5555"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -30,6 +30,16 @@
             android:textColor="@color/banner_title_color"
             android:layout_gravity="center"
             android:textSize="32px" />
+        <TextView
+            android:id="@+id/item_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18px"
+            android:layout_marginRight="48px"
+            android:textColor="@color/banner_title_color"
+            android:layout_gravity="center"
+            android:textSize="24px"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <ImageView

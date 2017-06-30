@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff" >
+
+    <RelativeLayout
+        android:id="@+id/topbar_card_analysis"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="#dd5555"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/backbtn_card_analysis"
+            android:layout_width="20px"
+            android:layout_height="36px"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/title_card_analysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="答题卡"
+            android:textColor="@color/banner_title_color"
+            android:textSize="32px" >
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/cardContent_layout_analysis"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/topbar_card_analysis"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px" >
+
+        <GridView
+            android:id="@+id/gridBtn_view_analysis"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:columnWidth="20dp"
+            android:numColumns="5"
+            android:verticalSpacing="5dp" >
+        </GridView>
+    </RelativeLayout>
+
+</RelativeLayout>
