@@ -115,7 +115,7 @@ public class AnalysisActivity extends FragmentActivity implements
      * @param layout
      */
     private void showProcessDialog(AnalysisActivity mContext, int layout) {
-        mDialog = new AlertDialog.Builder(mContext,R.style.showdialog).create();
+        mDialog = new AlertDialog.Builder(mContext, R.style.showdialog).create();
         mDialog.show();
         // 注意此处要放在show之后 否则会报异常
         mDialog.setContentView(layout);
@@ -211,7 +211,7 @@ public class AnalysisActivity extends FragmentActivity implements
                 }
                 if (analysisList != null && analysisList.get(0).getBody().size() > 0) {
                     int size = analysisList.get(0).getBody().size();
-                    for (int i = 0; i < analysisList.size(); i++) {
+                    for (int i = 0; i < analysisList.get(0).getBody().size(); i++) {
                         /** update by atom 2016/12/22 **/
                         Fragment f = new TiKuContentFragment(
                                 AnalysisActivity.this, changeHandler);
@@ -244,9 +244,9 @@ public class AnalysisActivity extends FragmentActivity implements
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            if (analysisList != null && analysisList.size() > 0) {
+            if (analysisList != null && analysisList.get(0).getBody().size() > 0) {
                 // 获取list大小
-                int size = analysisList.size();
+                int size = analysisList.get(0).getBody().size();
                 // 添加适配器
                 analysicAdapter = new MyFragmentPageAdapter(fm, FragmentList);
                 ViewPagerScroller scroller = new ViewPagerScroller(
