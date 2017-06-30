@@ -21,12 +21,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.Map;
 
 import butterknife.BindView;
@@ -47,7 +50,6 @@ import jc.cici.android.atom.common.CommParam;
 import jc.cici.android.atom.common.Global;
 import jc.cici.android.atom.http.HttpPostService;
 import jc.cici.android.atom.http.RetrofitOKManager;
-import jc.cici.android.atom.ui.study.StudyHomeActivity;
 import jc.cici.android.atom.utils.NetUtil;
 import jc.cici.android.atom.utils.ToolUtils;
 import okhttp3.MediaType;
@@ -151,6 +153,7 @@ public class NormalActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         // 入栈
         AppManager.getInstance().addActivity(this);
@@ -268,9 +271,9 @@ public class NormalActivity extends BaseActivity {
                     dialog.setTitleText("");
                 }
                 HttpPostService httpPostService = retrofit.create(HttpPostService.class);
-                String str=String.valueOf(type);
-                if("WEIXIN".equals(str)){
-                   str = "WECHAT";
+                String str = String.valueOf(type);
+                if ("WEIXIN".equals(str)) {
+                    str = "WECHAT";
                 }
                 String jsonStr = "{'OpenID':'" + data.get("uid")
                         + "','ThirdType':'" + str + "'}";
@@ -349,7 +352,7 @@ public class NormalActivity extends BaseActivity {
                                                                         @Override
                                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                                             // 提示绑定设备
-                                                                            bindDeiver(bindJCInfo.getResultData().getS_PassWord(),bindJCInfo.getResultData().getS_Name(), sweetAlertDialog);
+                                                                            bindDeiver(psd, bindJCInfo.getResultData().getS_Name(), sweetAlertDialog, bindJCInfo.getResultData());
                                                                         }
                                                                     })
                                                                     .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -378,7 +381,7 @@ public class NormalActivity extends BaseActivity {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                             // 提示绑定设备
-                                                            bindDeiver(bindJCInfo.getResultData().getS_PassWord(),bindJCInfo.getResultData().getS_Name(), sweetAlertDialog);
+                                                            bindDeiver(psd, bindJCInfo.getResultData().getS_Name(), sweetAlertDialog, bindJCInfo.getResultData());
                                                         }
                                                     })
                                                     .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -545,7 +548,7 @@ public class NormalActivity extends BaseActivity {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                             // 提示绑定设备
-                                                            bindDeiver(userInfo.getBody().getS_PassWord(),userInfo.getBody().getS_Name(), sweetAlertDialog);
+                                                            bindDeiver(psd, userInfo.getBody().getS_Name(), sweetAlertDialog, userInfo.getBody());
                                                         }
                                                     })
                                                     .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -558,7 +561,6 @@ public class NormalActivity extends BaseActivity {
                                             // 保存用户信息
                                             saveUserSharePreferences(userInfo.getBody());
                                             // TODO 登录成功跳转
-                                            baseActivity.openActivityAndCloseThis(StudyHomeActivity.class);
 
                                         } else if (2 == status) { // 当前账号已在其他设备上登录
                                             new SweetAlertDialog(NormalActivity.this, SweetAlertDialog.WARNING_TYPE)
@@ -583,7 +585,7 @@ public class NormalActivity extends BaseActivity {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                             // 提示绑定设备
-                                                            bindDeiver(userInfo.getBody().getS_PassWord(),userInfo.getBody().getS_Name(), sweetAlertDialog);
+                                                            bindDeiver(psd, userInfo.getBody().getS_Name(), sweetAlertDialog, userInfo.getBody());
                                                         }
                                                     })
                                                     .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -622,7 +624,7 @@ public class NormalActivity extends BaseActivity {
                                                         // 清除上次登录信息
                                                         clearLastLoginInfo();
                                                         // 绑定设备信息
-                                                        setBindDiever(status,userInfo);
+                                                        setBindDiever(status, userInfo);
                                                     }
                                                 })
                                                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -682,7 +684,7 @@ public class NormalActivity extends BaseActivity {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 // 提示绑定设备
-                                bindDeiver(userInfo.getBody().getS_PassWord(),userInfo.getBody().getS_Name(), sweetAlertDialog);
+                                bindDeiver(psd, userInfo.getBody().getS_Name(), sweetAlertDialog, userInfo.getBody());
                             }
                         })
                         .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -773,7 +775,7 @@ public class NormalActivity extends BaseActivity {
      *
      * @param password
      */
-    private void bindDeiver(String password, String userName,final SweetAlertDialog sweetAlertDialog) {
+    private void bindDeiver(String password, String userName, final SweetAlertDialog sweetAlertDialog, final User user) {
         Retrofit retrofit = RetrofitOKManager.getinstance().doBaseRetrofit(Global.BASE_URL);
         HttpPostService httpPostService = retrofit.create(HttpPostService.class);
         JSONObject obj = new JSONObject();
@@ -791,57 +793,64 @@ public class NormalActivity extends BaseActivity {
         }
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), obj.toString());
         Observable<DeiverInfo> observable = httpPostService.getDeiverInfo(body);
-        observable.observeOn(Schedulers.io())
+        observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DeiverInfo>() {
-                    @Override
-                    public void onCompleted() {
-                        if (sweetAlertDialog != null && sweetAlertDialog.isShowing()) {
-                            sweetAlertDialog.dismissWithAnimation();
-                        }
-                    }
+                .subscribe(
+                        new Subscriber<DeiverInfo>() {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        if (sweetAlertDialog != null && sweetAlertDialog.isShowing()) {
-                            sweetAlertDialog.dismissWithAnimation();
-                            Toast.makeText(NormalActivity.this, "绑定失败", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                            @Override
+                            public void onCompleted() {
+                                if (sweetAlertDialog != null && sweetAlertDialog.isShowing()) {
+                                    sweetAlertDialog.dismissWithAnimation();
+                                }
+                            }
 
-                    @Override
-                    public void onNext(DeiverInfo deiverInfo) {
-                        // 保存本地信息
-                        SaveSharePreferences(deiverInfo);
-                        // TODO 跳转处理
-                        baseActivity.openActivityAndCloseThis(StudyHomeActivity.class);
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                if (sweetAlertDialog != null && sweetAlertDialog.isShowing()) {
+                                    sweetAlertDialog.dismissWithAnimation();
+                                    Toast.makeText(NormalActivity.this, "绑定失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        if (sweetAlertDialog != null && !sweetAlertDialog.isShowing()) {
-                            sweetAlertDialog.show();
-                        }
-                    }
-                });
+                            @Override
+                            public void onNext(DeiverInfo deiverInfo) {
+                                if ("100".equals(deiverInfo.getCode())) {
+                                    Toast.makeText(NormalActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
+                                    // 保存本地信息
+                                    SaveSharePreferences(user);
+                                    // TODO 跳转处理
+                                } else {
+                                    Toast.makeText(NormalActivity.this, deiverInfo.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onStart() {
+                                super.onStart();
+                                if (sweetAlertDialog != null && !sweetAlertDialog.isShowing()) {
+                                    sweetAlertDialog.show();
+                                }
+                            }
+
+                        });
     }
 
     /**
      * 保存绑定后用户信息
      *
-     * @param deiverInfo
+     * @param user
      */
-    private void SaveSharePreferences(DeiverInfo deiverInfo) {
+    private void SaveSharePreferences(User user) {
         // 获取最近登录preferences
         SharedPreferences lastSharePre = getSharedPreferences(Global.LAST_LOGIN_FLAG, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = lastSharePre.edit();
-        editor.putInt("S_ID", deiverInfo.getBody().getS_ID());
+        editor.putInt("S_ID", user.getS_ID());
         editor.commit();
 
         // 存储登录信息
-        saveUserInfo(deiverInfo.getBody());
+        saveUserInfo(user);
 
         // 绑定UUID
         SharedPreferences uuidPre = getSharedPreferences(Global.UUID_FLAG, Activity.MODE_PRIVATE);
