@@ -264,7 +264,7 @@ public class RegisterActivity extends BaseActivity {
                 }
                 break;
             case R.id.userTip_txt: // 注意事项文字监听
-
+                baseActivity.openActivity(NoticeActivity.class);
                 break;
             case R.id.immediatelyLogin_txt: // 立即登录文字监听
                 if (baseActivity.verifyClickTime()) {
