@@ -29,7 +29,10 @@ public class CommParam {
         setAppname(Global.APPNAME);
         setDeviceid(ToolUtils.getUUID(ctx));
         setTimeStamp(ToolUtils.getCurrentTime());
+        // 测试数据
         setUserId(ToolUtils.getUserID(ctx));
+        // 设置加密
+        setOauth(ToolUtils.getMD5Str(UserId + TimeStamp + "android!%@%$@#$"));
     }
 
     public String getClient() {
