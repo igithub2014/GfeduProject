@@ -27,11 +27,14 @@ import jc.cici.android.atom.adapter.CardPagerAdapter;
 import jc.cici.android.atom.base.AppManager;
 import jc.cici.android.atom.base.BaseActivity;
 import jc.cici.android.atom.bean.CardItem;
+import jc.cici.android.atom.bean.CommentBean;
+import jc.cici.android.atom.bean.CommonBean;
 import jc.cici.android.atom.bean.StageInfo;
 import jc.cici.android.atom.common.CommParam;
 import jc.cici.android.atom.common.Global;
 import jc.cici.android.atom.http.HttpPostService;
 import jc.cici.android.atom.http.RetrofitOKManager;
+import jc.cici.android.atom.utils.NetUtil;
 import jc.cici.android.atom.utils.ToolUtils;
 import jc.cici.android.atom.view.ScoreProgressBar;
 import jc.cici.android.atom.view.ShadowTransformer;
@@ -96,6 +99,8 @@ public class StudyDetailActivity extends BaseActivity {
     private String cutDownDayStr;
     // 学习进度
     private String studyPercent;
+    // 阶段列表
+    private ArrayList<CardItem> mData;
     // 广告点数组
     private ImageView[] imgViews;
     // 广告点
@@ -130,7 +135,12 @@ public class StudyDetailActivity extends BaseActivity {
         //初始化视图
         initView();
         // 初始化内容
-        initData();
+        // 初始数据
+        if (NetUtil.isMobileConnected(this)) {
+            initData();
+        }else{
+            Toast.makeText(this, "网络连接失败,请检查网络连接", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -160,104 +170,85 @@ public class StudyDetailActivity extends BaseActivity {
                 e.printStackTrace();
             }
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), obj.toString());
-//            Observable<StageInfo> observable = httpPostService.getStageInfo(body);
-//            observable.subscribeOn(Schedulers.io())
-//                    .unsubscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Subscriber<StageInfo>() {
-//                        @Override
-//                        public void onCompleted() {
-//                            if (dialog != null && dialog.isShowing()) {
-//                                dialog.dismissWithAnimation();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//                            if (dialog != null && dialog.isShowing()) {
-//                                dialog.dismissWithAnimation();
-//                                Toast.makeText(baseActivity, "网络请求异常", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onNext(StageInfo stageInfo) {
-//                            className = stageInfo.getClassName();
-//                            proName = stageInfo.getProName();
-//                            examDateStr = stageInfo.getExamDate();
-//                            cutDownDayStr = stageInfo.getCountdown();
-//                            studyPercent = stageInfo.getStudyPercent();
-//                            mData = (ArrayList<CardItem>) stageInfo.getStageList();
-//                        }
-//                    });
+            Observable<CommonBean<StageInfo>> observable = httpPostService.getStageInfo(body);
+            observable.subscribeOn(Schedulers.io())
+                    .unsubscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<CommonBean<StageInfo>>() {
+                        @Override
+                        public void onCompleted() {
+                            if (dialog != null && dialog.isShowing()) {
+                                dialog.dismissWithAnimation();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            if (dialog != null && dialog.isShowing()) {
+                                dialog.dismissWithAnimation();
+                                Toast.makeText(baseActivity, "网络请求异常", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onNext(CommonBean<StageInfo> stageInfoCommonBean) {
+                            if (100 == stageInfoCommonBean.getCode()) {
+                                className = stageInfoCommonBean.getBody().getClassName();
+                                proName = stageInfoCommonBean.getBody().getProName();
+                                examDateStr = stageInfoCommonBean.getBody().getExamDate();
+                                cutDownDayStr = stageInfoCommonBean.getBody().getCountdown();
+                                studyPercent = stageInfoCommonBean.getBody().getStudyPercent();
+                                mData = (ArrayList<CardItem>) stageInfoCommonBean.getBody().getStageList();
+                                timeDru_Txt.setText("距离" + examDateStr + "\n" + proName + "考试，还有");
+                                String couDay = cutDownDayStr + "天";
+                                day_Txt.setText(ToolUtils.setTextSize(baseActivity, couDay, couDay.length()-2, couDay.length(), R.style.style0, R.style.style1), TextView.BufferType.SPANNABLE);
+//                                // 设置进度
+//                                scoreProgressBar.setProgress(Integer.parseInt(studyPercent));
+                                // 初始化卡片适配器
+                                cardPagerAdapter = new CardPagerAdapter(baseActivity, classId);
+                                // 添加数据
+                                for(CardItem item: mData){
+                                    cardPagerAdapter.addCardItem(item);
+                                }
+                                imgViews = new ImageView[mData.size()];
+                                for (int i = 0; i < imgViews.length; i++) {
+                                    // 添加白点
+                                    dots_img = new ImageView(baseActivity);
+                                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20, 20);
+                                    lp.setMargins(10, 0, 10, 0);
+                                    dots_img.setLayoutParams(lp);
+                                    imgViews[i] = dots_img;
+                                    if (i == 0) { // 第一张默认加载
+                                        imgViews[i]
+                                                .setBackgroundResource(R.drawable.icon_dian_clickable);
+                                    } else {
+                                        imgViews[i]
+                                                .setBackgroundResource(R.drawable.icon_dian_normal);
+                                    }
+                                    point_layout.addView(imgViews[i]);
+                                }
+
+                                mCardShadowTransformer = new ShadowTransformer(viewPager, cardPagerAdapter, imgViews);
+                                viewPager.setAdapter(cardPagerAdapter);
+                                viewPager.setPageTransformer(false, mCardShadowTransformer);
+                                mCardShadowTransformer.enableScaling(true);
+                                viewPager.setOffscreenPageLimit(3);
+
+                            } else {
+                                Toast.makeText(baseActivity, stageInfoCommonBean.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onStart() {
+                            super.onStart();
+                            if (dialog != null && !dialog.isShowing()) {
+                                dialog.show();
+                            }
+                        }
+                    });
         } else {
             Toast.makeText(this, "用户未登陆或班级不存在", Toast.LENGTH_SHORT).show();
         }
-
-
-        // 测试数据
-        StageInfo stageInfo = new StageInfo();
-        stageInfo.setClassName("1706CFA一级无忧长线班");
-        stageInfo.setProName("CFA一级");
-        stageInfo.setExamDate("2017-12-30");
-        stageInfo.setCountdown("45");
-        stageInfo.setStudyPercent("50");
-
-        title_txt.setText(stageInfo.getClassName());
-        timeDru_Txt.setText("距离" + stageInfo.getExamDate() + "\n" + stageInfo.getProName() + "考试，还有");
-        day_Txt.setText(ToolUtils.setTextSize(this, stageInfo.getCountdown() + "天",1,3,R.style.style0,R.style.style1), TextView.BufferType.SPANNABLE);
-        // 设置进度
-        scoreProgressBar.setProgress(50);
-        cardPagerAdapter = new CardPagerAdapter(this,classId);
-
-        imgViews = new ImageView[5];
-        for (int i = 0; i < 5; i++) {
-            CardItem item = new CardItem();
-            if (i % 2 == 0) {
-                item.setStageId(17);
-                item.setStageName("基础段学习");
-                item.setStageType("在线");
-                item.setStageStatus(0);
-                item.setStageStartTime("2017-05-01");
-                item.setStageEndTime("2017-06-30");
-                item.setStagePeriod(40);
-                item.setStageProblem(0);
-                item.setStageNote(0);
-                item.setStageInformation(0);
-            } else {
-                item.setStageId(17);
-                item.setStageName("强化段学习");
-                item.setStageType("面授");
-                item.setStageStatus(0);
-                item.setStageStartTime("2017-05-01");
-                item.setStageEndTime("2017-06-30");
-                item.setStagePeriod(40);
-                item.setStageProblem(1);
-                item.setStageNote(1);
-                item.setStageInformation(1);
-            }
-            cardPagerAdapter.addCardItem(item);
-            // 添加白点
-            dots_img = new ImageView(this);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20, 20);
-            lp.setMargins(10,0,10,0);
-            dots_img.setLayoutParams(lp);
-            imgViews[i] = dots_img;
-            if (i == 0) { // 第一张默认加载
-                imgViews[i]
-                        .setBackgroundResource(R.drawable.icon_dian_clickable);
-            } else {
-                imgViews[i]
-                        .setBackgroundResource(R.drawable.icon_dian_normal);
-            }
-            point_layout.addView(imgViews[i]);
-        }
-
-        mCardShadowTransformer = new ShadowTransformer(viewPager, cardPagerAdapter,imgViews);
-        viewPager.setAdapter(cardPagerAdapter);
-        viewPager.setPageTransformer(false, mCardShadowTransformer);
-        mCardShadowTransformer.enableScaling(true);
-        viewPager.setOffscreenPageLimit(3);
     }
 
     /**

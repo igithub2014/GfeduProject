@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,15 +24,16 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import jc.cici.android.R;
 import jc.cici.android.atom.adapter.HistoryRecyclerAdapter;
 import jc.cici.android.atom.adapter.base.BaseRecycleerAdapter;
-import jc.cici.android.atom.adapter.base.LoadingMore;
 import jc.cici.android.atom.base.AppManager;
 import jc.cici.android.atom.base.BaseActivity;
+import jc.cici.android.atom.bean.CommonBean;
 import jc.cici.android.atom.bean.HistoryInfo;
 import jc.cici.android.atom.bean.HistoryLesson;
 import jc.cici.android.atom.common.CommParam;
 import jc.cici.android.atom.common.Global;
 import jc.cici.android.atom.http.HttpPostService;
 import jc.cici.android.atom.http.RetrofitOKManager;
+import jc.cici.android.atom.utils.NetUtil;
 import jc.cici.android.atom.utils.ToolUtils;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import okhttp3.MediaType;
@@ -125,7 +125,11 @@ public class HistoryActivity extends BaseActivity {
         // 初始话视图
         initView();
         // 初始数据
-        initData();
+        if (NetUtil.isMobileConnected(this)) {
+            initData();
+        } else {
+            Toast.makeText(this, "网络连接失败,请检查网络连接", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -133,7 +137,7 @@ public class HistoryActivity extends BaseActivity {
      */
     private void initData() {
 
-        Retrofit retorfit = RetrofitOKManager.getinstance().doBaseRetrofit(Global.OLD_BASE_URL);
+        Retrofit retorfit = RetrofitOKManager.getinstance().doBaseRetrofit(Global.BASE_URL);
         dialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         dialog.setTitle("");
         dialog.setTitleText("");
@@ -145,109 +149,146 @@ public class HistoryActivity extends BaseActivity {
         if (0 != userId && 0 != classId && 0 != stageId) {
             try {
                 obj.put("client", commParam.getClient());
-                obj.put("version", commParam.getVersion());
-                obj.put("deviceid", commParam.getDeviceid());
-                obj.put("appname", commParam.getAppname());
                 obj.put("userId", userId);
                 obj.put("classId", classId);
                 obj.put("stageId", stageId);
                 obj.put("timeStamp", commParam.getTimeStamp());
+                obj.put("keyword", "");
                 obj.put("oauth", ToolUtils.getMD5Str(userId + commParam.getTimeStamp() + "android!%@%$@#$"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            RequestBody body = RequestBody.create(MediaType.parse("application/json"), obj.toString());
-//            Observable<HistoryInfo> observable = httpPostService.getHistoryLessonInfo(body);
-//            observable.observeOn(Schedulers.io())
-//                    .unsubscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(
-//                            new Subscriber<HistoryInfo>() {
-//                                @Override
-//                                public void onCompleted() {
-//                                    if (dialog != null && dialog.isShowing()) {
-//                                        dialog.dismissWithAnimation();
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onError(Throwable e) {
-//                                    if (dialog != null && dialog.isShowing()) {
-//                                        dialog.dismissWithAnimation();
-//                                        Toast.makeText(baseActivity, "网络请求错误", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onNext(HistoryInfo historyInfo) {
-//                                    finishedPeriod = historyInfo.getFinishedPeriod();
-//                                    attendanceRate = historyInfo.getAttendanceRate();
-//                                    mData = historyInfo.getHistoryLessonList();
-//                                }
-//                            }
-//                    );
+            RequestBody body = RequestBody.create(MediaType.parse("application/json"), obj.toString());
+            Observable<CommonBean<HistoryInfo>> observable = httpPostService.getHistoryLessonInfo(body);
+            observable.subscribeOn(Schedulers.io())
+                    .unsubscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Subscriber<CommonBean<HistoryInfo>>() {
+                                @Override
+                                public void onCompleted() {
+                                    if (dialog != null && dialog.isShowing()) {
+                                        dialog.dismissWithAnimation();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    if (dialog != null && dialog.isShowing()) {
+                                        dialog.dismissWithAnimation();
+                                        Toast.makeText(baseActivity, "网络请求错误", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onNext(CommonBean<HistoryInfo> historyInfoBean) {
+                                    if (100 == historyInfoBean.getCode()) {
+                                        finishedPeriod = historyInfoBean.getBody().getFinishedPeriod();
+                                        attendanceRate = historyInfoBean.getBody().getAttendanceRate();
+                                        mData = historyInfoBean.getBody().getHistoryLessonList();
+                                        finishTime_Txt.setText(ToolUtils.strReplaceAll(finishedPeriod));
+                                        attendenceTime_Txt.setText(ToolUtils.strReplaceAll(attendanceRate));
+
+                                        adapter = new HistoryRecyclerAdapter(baseActivity, mData);
+                                        SlideInBottomAnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter);
+                                        animationAdapter.setDuration(1000);
+                                        recyclerView.setAdapter(animationAdapter);
+
+                                        /**
+                                         * 加载更多
+                                         */
+                                        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                                            @Override
+                                            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                                                super.onScrollStateChanged(recyclerView, newState);
+                                                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                                                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                                                    if (lastVisiblePosition >= linearLayoutManager.getItemCount() - 1) {
+                                                        loading();
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                        /**
+                                         * item 点击
+                                         */
+                                        adapter.setOnItemClickListener(new BaseRecycleerAdapter.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(View view, int position) {
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("titleName", mData.get(position).getLessonName());
+                                                bundle.putInt("classId", classId);
+                                                bundle.putInt("stageId", stageId);
+                                                bundle.putInt("lessonId", mData.get(position).getLessonId());
+                                                baseActivity.openActivity(ChapterActivity.class, bundle);
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(baseActivity, historyInfoBean.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                    );
         } else {
             Toast.makeText(baseActivity, "用户不存在", Toast.LENGTH_SHORT).show();
         }
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        mData = new ArrayList<>();
-        for (int j = 0; j < 15; j++) {
-            HistoryLesson lesson = new HistoryLesson();
-            if (j % 2 == 0) {
-                lesson.setLessonId(17);
-                lesson.setLessonName("1706CFA一级无忧长线班");
-                lesson.setLessonDateType("2");
-                lesson.setLessonDate("2017-08-15");
-                lesson.setLessonStartTime("09:00");
-                lesson.setLessonEndTime("11:00");
-                lesson.setAttendanceStatus(1);
-            } else {
-                lesson.setLessonId(19);
-                lesson.setLessonName("1706CFA三级无忧长线班");
-                lesson.setLessonDateType("1");
-                lesson.setLessonDate("2017-08-15");
-                lesson.setLessonStartTime("09:00");
-                lesson.setLessonEndTime("11:00");
-                lesson.setAttendanceStatus(0);
-            }
-            mData.add(lesson);
-        }
-        // 添加测试数据
-        HistoryInfo info = new HistoryInfo();
-        info.setAttendanceRate("59%");
-        info.setFinishedPeriod("25H");
-        info.setHistoryLessonList(mData);
+//        mData = new ArrayList<>();
+//        for (int j = 0; j < 15; j++) {
+//            HistoryLesson lesson = new HistoryLesson();
+//            if (j % 2 == 0) {
+//                lesson.setLessonId(17);
+//                lesson.setLessonName("1706CFA一级无忧长线班");
+//                lesson.setLessonDateType("2");
+//                lesson.setLessonDate("2017-08-15");
+//                lesson.setLessonStartTime("09:00");
+//                lesson.setLessonEndTime("11:00");
+//                lesson.setAttendanceStatus(1);
+//            } else {
+//                lesson.setLessonId(19);
+//                lesson.setLessonName("1706CFA三级无忧长线班");
+//                lesson.setLessonDateType("1");
+//                lesson.setLessonDate("2017-08-15");
+//                lesson.setLessonStartTime("09:00");
+//                lesson.setLessonEndTime("11:00");
+//                lesson.setAttendanceStatus(0);
+//            }
+//            mData.add(lesson);
+//        }
+//        // 添加测试数据
+//        HistoryInfo info = new HistoryInfo();
+//        info.setAttendanceRate("59%");
+//        info.setFinishedPeriod("25H");
+//        info.setHistoryLessonList(mData);
 
 
-        finishTime_Txt.setText(info.getFinishedPeriod());
-        attendenceTime_Txt.setText(info.getAttendanceRate());
-
-        adapter = new HistoryRecyclerAdapter(this, mData);
-        SlideInBottomAnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter);
-        animationAdapter.setDuration(1000);
-        recyclerView.setAdapter(animationAdapter);
-
-        recyclerView.addOnScrollListener(new LoadingMore(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                loading();
-            }
-        });
-
-        /**
-         * item 点击
-         */
-        adapter.setOnItemClickListener(new BaseRecycleerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putString("titleName", mData.get(position).getLessonName());
-                baseActivity.openActivity(ChapterActivity.class, bundle);
-            }
-        });
+//        finishTime_Txt.setText(info.getFinishedPeriod());
+//        attendenceTime_Txt.setText(info.getAttendanceRate());
+//
+//        adapter = new HistoryRecyclerAdapter(this, mData);
+//        SlideInBottomAnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter);
+//        animationAdapter.setDuration(1000);
+//        recyclerView.setAdapter(animationAdapter);
+//
+//        recyclerView.addOnScrollListener(new LoadingMore(linearLayoutManager) {
+//            @Override
+//            public void onLoadMore(int currentPage) {
+//                loading();
+//            }
+//        });
+//
+//        /**
+//         * item 点击
+//         */
+//        adapter.setOnItemClickListener(new BaseRecycleerAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("titleName", mData.get(position).getLessonName());
+//                baseActivity.openActivity(ChapterActivity.class, bundle);
+//            }
+//        });
     }
 
     /**
@@ -267,6 +308,9 @@ public class HistoryActivity extends BaseActivity {
         search_Btn.setVisibility(View.VISIBLE);
         register_txt.setVisibility(View.GONE);
         title_txt.setText(titleName);
+        linearLayoutManager = new LinearLayoutManager(baseActivity);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
     }
 
     /**
@@ -282,9 +326,9 @@ public class HistoryActivity extends BaseActivity {
                 break;
             case R.id.search_Btn: // 搜索按钮
                 Bundle bundle = new Bundle();
-                bundle.putInt("classId",classId);
-                bundle.putInt("stageId",stageId);
-                baseActivity.openActivity(SearchActivity.class,bundle);
+                bundle.putInt("classId", classId);
+                bundle.putInt("stageId", stageId);
+                baseActivity.openActivity(SearchActivity.class, bundle);
                 break;
             default:
                 break;
