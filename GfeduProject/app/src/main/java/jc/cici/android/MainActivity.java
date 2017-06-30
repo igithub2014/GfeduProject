@@ -8,9 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import jc.cici.android.atom.common.Global;
-import jc.cici.android.atom.ui.login.NormalActivity;
 import jc.cici.android.atom.ui.study.CheckLoginActivity;
-import jc.cici.android.atom.ui.study.StudyHomeActivity;
+import jc.cici.android.atom.ui.tiku.MyQuestionActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent it = new Intent(MainActivity.this, CheckLoginActivity.class);
                     startActivity(it);
                 }else{
-                    Intent it = new Intent(MainActivity.this, StudyHomeActivity.class);
+
+                    Intent it = new Intent(MainActivity.this, MyQuestionActivity.class);
                     startActivity(it);
                 }
 
