@@ -3,7 +3,9 @@ package jc.cici.android.atom.view;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ImageView;
 
+import jc.cici.android.R;
 import jc.cici.android.atom.adapter.CardAdapter;
 
 /**
@@ -16,11 +18,13 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
     private CardAdapter mAdapter;
     private float mLastOffset;
     private boolean mScalingEnabled;
+    private ImageView[] mImgViews;
 
-    public ShadowTransformer(ViewPager viewPager, CardAdapter adapter) {
+    public ShadowTransformer(ViewPager viewPager, CardAdapter adapter, ImageView[] imgViews) {
         mViewPager = viewPager;
         viewPager.addOnPageChangeListener(this);
         mAdapter = adapter;
+        this.mImgViews = imgViews;
     }
 
     public void enableScaling(boolean enable) {
@@ -31,7 +35,7 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
                 currentCard.animate().scaleY(1);
                 currentCard.animate().scaleX(1);
             }
-        }else if(!mScalingEnabled && enable){
+        } else if (!mScalingEnabled && enable) {
             // grow main card
             CardView currentCard = mAdapter.getCardViewAt(mViewPager.getCurrentItem());
             if (currentCard != null) {
@@ -100,6 +104,15 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
 
     @Override
     public void onPageSelected(int position) {
+
+        for (int i = 0; i < mImgViews.length; i++) {
+            mImgViews[position]
+                    .setBackgroundResource(R.drawable.icon_dian_clickable);
+            if (position != i) {
+                mImgViews[i]
+                        .setBackgroundResource(R.drawable.icon_dian_normal);
+            }
+        }
 
     }
 
