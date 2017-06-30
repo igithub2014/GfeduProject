@@ -35,6 +35,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements NetBroa
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         event = this;
         // 获取初始网络情况
@@ -46,7 +47,8 @@ public abstract class BaseActivity extends AutoLayoutActivity implements NetBroa
      * 去标题
      */
     public void requestNoTitle(){
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
     /**
      * 获取初始网络情况

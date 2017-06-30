@@ -1,7 +1,6 @@
 package jc.cici.android.atom.base;
 
 import android.app.Application;
-
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
