@@ -39,16 +39,15 @@ public class NetUtil {
     }
 
     /**
-     * 判断是否有网络连接
+     * 判断是否为移动网络连接
      *
      * @param context
      * @return
      */
-    public static boolean isNetWorkConnected(Context context) {
+    public static boolean isNetWorkConnectedByMobile(Context context) {
         if (null != context) {
-            // 获取网络连接管理器对象
             ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
             if (null != networkInfo) {
                 return networkInfo.isAvailable();
             }
@@ -74,15 +73,17 @@ public class NetUtil {
     }
 
     /**
-     * 判断移动网络是否可用
+     * 判断网络是连接
      *
      * @param context
      * @return
      */
     public static boolean isMobileConnected(Context context) {
+
         if (null != context) {
+            // 获取网络连接管理器对象
             ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (null != networkInfo) {
                 return networkInfo.isAvailable();
             }
@@ -109,6 +110,7 @@ public class NetUtil {
 
     /**
      * 获取APP运行网络类型(可用于后台Wifi情况下更新APP版本)
+     *
      * @param context
      * @return
      */
