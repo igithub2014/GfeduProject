@@ -270,13 +270,26 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.goClickableFrom_Img: // 课表按钮
-                        Intent it = new Intent(mCtx, CourseDetialActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("titleName",mData.get(position).getStageName());
-                        bundle.putInt("classId",mClassID);
-                        bundle.putInt("stageId", mData.get(position).getStageId());
-                        it.putExtras(bundle);
-                        mCtx.startActivity(it);
+                        if("在线".equals(mData.get(position).getStageType())){
+//                            Intent it = new Intent(mCtx, OnlineClassActivity.class);
+//                            Bundle bundle = new Bundle();
+//                            bundle.putString("titleName",mData.get(position).getStageName());
+//                            bundle.putString("classId",String.valueOf(mClassID));
+//                            bundle.putString("stageId", String.valueOf(mData.get(position).getStageId()));
+//                            it.putExtras(bundle);
+//                            mCtx.startActivity(it);
+                        }else if("面授".equals(mData.get(position).getStageType())){
+                            Intent it = new Intent(mCtx, CourseDetialActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("titleName",mData.get(position).getStageName());
+                            bundle.putInt("classId",mClassID);
+                            bundle.putInt("stageId", mData.get(position).getStageId());
+                            it.putExtras(bundle);
+                            mCtx.startActivity(it);
+                        }else{
+                            Toast.makeText(mCtx,"暂无直播内容",Toast.LENGTH_SHORT).show();
+                        }
+
                         break;
                     case R.id.goClickableQues_Img: // 问题按钮
                         Intent quesitonIt = new Intent(mCtx, QuestionAllActivity.class);
