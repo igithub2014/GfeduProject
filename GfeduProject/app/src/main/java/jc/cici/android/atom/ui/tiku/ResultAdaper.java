@@ -2,6 +2,7 @@ package jc.cici.android.atom.ui.tiku;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class ResultAdaper extends BaseAdapter {
 
     @Override
     public int getCount() {
-        Log.d("resultList.size()","" + resultList.size());
+        Log.d("resultList.size()", "" + resultList.size());
         return resultList.size();
     }
 
@@ -56,15 +57,15 @@ public class ResultAdaper extends BaseAdapter {
     public View getView(final int position, View convertView,
                         ViewGroup parent) {
         ViewHolder viewHolder;
-            convertView = LayoutInflater.from(ctx)
-                    .inflate(R.layout.result_item, null);
-            viewHolder = new ViewHolder();
-            viewHolder.btnResult = (Button) convertView
-                    .findViewById(R.id.resultbtn_item);
+        convertView = LayoutInflater.from(ctx)
+                .inflate(R.layout.result_item, null);
+        viewHolder = new ViewHolder();
+        viewHolder.btnResult = (Button) convertView
+                .findViewById(R.id.resultbtn_item);
         // 获取按钮文字
-        String txt = String.valueOf(position + 1);
+        String txt = resultList.get(position).getQuesNo();
         // 设置文字
-        viewHolder.btnResult.setText(txt);
+        viewHolder.btnResult.setText(txt + "");
         // 用户选择答案
         int testPaperAns = resultList.get(position).getQuesStatus();
         switch (testPaperAns) {
@@ -90,23 +91,19 @@ public class ResultAdaper extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-//                // gridView 按钮点击跳转
-//                Intent jumpIntent = new Intent(ctx,
-//                        AnalysisActivity.class);
-//                // 传递当前跳转页面位置
-//                jumpIntent.putExtra("currPosition", position);
-//                // 用户id
-//                jumpIntent.putExtra("userId", userId);
-//                // 试卷id
-//                jumpIntent.putExtra("testPPKID", testPPKID);
+                // gridView 按钮点击跳转
+                Intent jumpIntent = new Intent(ctx,
+                        AnalysisActivity.class);
+                // 传递当前跳转页面位置
+                int pos = Integer.parseInt(resultList.get(position).getQuesNo());
+                jumpIntent.putExtra("currPosition", pos - 1);
+                // 试卷id
+                jumpIntent.putExtra("testPPKID", resultList.get(position).getQuesId());
 //                // 试卷名称
 //                jumpIntent.putExtra("name", name);
-//                jumpIntent.putExtra("itemName", itemName);
-//                // 类型
-//                jumpIntent.putExtra("CardAnwserType", CardAnwserType);
-//                // 答案list
-//                jumpIntent.putExtra("result", resultList);
-//                CardResultActivity.this.startActivity(jumpIntent);
+                // 类型
+//                jumpIntent.putExtra("CardAnwserType", resultList.get(position).getQuesType());
+                ctx.startActivity(jumpIntent);
             }
         });
         return convertView;
