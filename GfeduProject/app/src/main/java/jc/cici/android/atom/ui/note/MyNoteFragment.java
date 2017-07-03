@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -61,6 +62,8 @@ public class MyNoteFragment extends BaseFragment {
     CommonHeader swipe_refresh_header;
     @BindView(R.id.swipe_target)
     RecyclerView swipe_target;
+    @BindView(R.id.emptyView)
+    ImageView emptyView;
     private Activity mCtx;
     // 当前传递课程id
     private int cspkid;
@@ -173,6 +176,9 @@ public class MyNoteFragment extends BaseFragment {
      * 刷新数据
      */
     private void refreshData() {
+        if (emptyView.getVisibility() == View.VISIBLE) {
+            emptyView.setVisibility(View.GONE);
+        }
         if (NetUtil.isMobileConnected(mCtx)) {
             page = 1;
             Retrofit retrofit = RetrofitOKManager.getinstance().doBaseRetrofit(Global.BASE_URL);
@@ -197,6 +203,7 @@ public class MyNoteFragment extends BaseFragment {
                                 @Override
                                 public void onNext(CommonBean<NoteBean> noteBeanCommonBean) {
                                     if (100 == noteBeanCommonBean.getCode()) {
+                                        emptyView.setVisibility(View.GONE);
                                         if (null != noteBeanCommonBean.getBody().getNotesList() && noteBeanCommonBean.getBody().getNotesList().size() > 0) {
                                             list.clear();
                                             list.addAll(noteBeanCommonBean.getBody().getNotesList());
@@ -206,8 +213,9 @@ public class MyNoteFragment extends BaseFragment {
                                             // 设置加载更多监听
                                             setLoadingMoreClick();
                                         } else {
-                                            // TODO 添加没有内容图片
-                                            Toast.makeText(mCtx, "抱歉，还没有该课程问题", Toast.LENGTH_SHORT).show();
+                                            emptyView.setVisibility(View.VISIBLE);
+//                                            // TODO 添加没有内容图片
+//                                            Toast.makeText(mCtx, "抱歉，还没有该课程问题", Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         Toast.makeText(mCtx, noteBeanCommonBean.getMessage(), Toast.LENGTH_SHORT).show();
@@ -233,7 +241,7 @@ public class MyNoteFragment extends BaseFragment {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
                         if (lastVisiblePosition >= linearLayoutManager.getItemCount() - 1) {
-                        Loading();
+                            Loading();
                         }
                     }
                 }
@@ -272,6 +280,7 @@ public class MyNoteFragment extends BaseFragment {
                             @Override
                             public void onNext(CommonBean<NoteBean> noteBeanCommonBean) {
                                 if (100 == noteBeanCommonBean.getCode()) {
+                                    emptyView.setVisibility(View.GONE);
                                     list = noteBeanCommonBean.getBody().getNotesList();
                                     if (null != list && list.size() > 0) {
                                         adapter = new MyNoteRecycleAdapter(mCtx, list, type);
@@ -297,7 +306,8 @@ public class MyNoteFragment extends BaseFragment {
 
                                     } else {
                                         // TODO 无数据加载图片
-                                        Toast.makeText(mCtx, "暂无笔记，您可以点击添加按钮添加笔记", Toast.LENGTH_SHORT).show();
+                                        emptyView.setVisibility(View.VISIBLE);
+//                                        Toast.makeText(mCtx, "暂无笔记，您可以点击添加按钮添加笔记", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Toast.makeText(mCtx, noteBeanCommonBean.getMessage(), Toast.LENGTH_SHORT).show();

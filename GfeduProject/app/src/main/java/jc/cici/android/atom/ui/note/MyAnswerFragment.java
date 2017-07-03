@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -65,6 +66,8 @@ public class MyAnswerFragment extends BaseFragment {
     CommonHeader swipe_refresh_header;
     @BindView(R.id.swipe_target)
     RecyclerView swipe_target;
+    @BindView(R.id.emptyView)
+    ImageView emptyView;
     private Activity mCtx;
     private LinearLayoutManager linearLayoutManager;
     private MyAnswerRecyclerAdapter adapter;
@@ -165,6 +168,7 @@ public class MyAnswerFragment extends BaseFragment {
                                         @Override
                                         public void onNext(CommonBean<MyAnswerBean> myAnswerBeanCommonBean) {
                                             if (100 == myAnswerBeanCommonBean.getCode()) {
+                                                emptyView.setVisibility(View.GONE);
                                                 if (null != myAnswerBeanCommonBean.getBody().getAnswerList() && myAnswerBeanCommonBean.getBody().getAnswerList().size() > 0) {
                                                     dataList.clear();
                                                     dataList.addAll(myAnswerBeanCommonBean.getBody().getAnswerList());
@@ -172,8 +176,9 @@ public class MyAnswerFragment extends BaseFragment {
                                                     // 加载更多
                                                     setLoadingMore();
                                                 } else {
-                                                    // TODO 添加没有内容图片
-                                                    Toast.makeText(mCtx, "抱歉，还没有该课程问题", Toast.LENGTH_SHORT).show();
+                                                    emptyView.setVisibility(View.VISIBLE);
+//                                                    // TODO 添加没有内容图片
+//                                                    Toast.makeText(mCtx, "抱歉，还没有该课程问题", Toast.LENGTH_SHORT).show();
                                                 }
 
                                             } else {
@@ -216,6 +221,7 @@ public class MyAnswerFragment extends BaseFragment {
                             @Override
                             public void onNext(CommonBean<MyAnswerBean> myAnswerBeanCommonBean) {
                                 if (100 == myAnswerBeanCommonBean.getCode()) {
+                                    emptyView.setVisibility(View.GONE);
                                     dataList = myAnswerBeanCommonBean.getBody().getAnswerList();
                                     if (null != dataList && dataList.size() > 0) {
                                         adapter = new MyAnswerRecyclerAdapter(mCtx, dataList, 3);
@@ -238,8 +244,9 @@ public class MyAnswerFragment extends BaseFragment {
                                             }
                                         });
                                     } else {
-                                        // TODO 添加没有内容图片
-                                        Toast.makeText(mCtx, "抱歉，还没有该课程的回答", Toast.LENGTH_SHORT).show();
+                                        emptyView.setVisibility(View.VISIBLE);
+//                                        // TODO 添加没有内容图片
+//                                        Toast.makeText(mCtx, "抱歉，还没有该课程的回答", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Toast.makeText(mCtx, myAnswerBeanCommonBean.getMessage(), Toast.LENGTH_SHORT).show();
