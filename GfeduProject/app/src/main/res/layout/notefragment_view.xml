@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeToLoadLayout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="147px">
+    android:layout_height="match_parent">
 
-    <jc.cici.android.atom.view.CommonHeader
-        android:id="@+id/swipe_refresh_header"
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:id="@+id/swipeToLoadLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/swipe_target"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+        <jc.cici.android.atom.view.CommonHeader
+            android:id="@+id/swipe_refresh_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/swipe_target"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+    
+    <ImageView
+        android:id="@+id/emptyView"
+        android:layout_width="142px"
+        android:layout_height="194px"
+        android:layout_centerInParent="true"
+        android:background="@drawable/nothing_bg"
+        android:visibility="gone"/>
+</RelativeLayout>
